@@ -1,3 +1,144 @@
-.FirstScreen {
-    background-color: aqua;
+* {
+  box-sizing: border-box;
+}
+
+
+.background {
+  height: 100vh;
+  background-color: #58A7DD;
+
+}
+
+.title {
+  padding-left: 120px;
+  padding-top: 180px;
+  height: 308px;
+  width: 200px;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 70px;
+  font-weight: bold;
+  color: #F4F4F4;
+}
+
+.login-button-centered{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #F4F4F4;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  background-color: #2982bd;
+  height: 45px;
+  width: 150px;
+  border-radius: 2vh;
+}
+
+.login-button:hover{
+  text-decoration: none;
+  transition-duration: 0.5s;
+  cursor: pointer;
+  color: #3f3f3f;
+  border: 1px solid #3f3f3f;
+  border-radius: 2vh;
+}
+
+.login-button:active{
+  background-color: #80BCE5;
+  transition-duration: 0s;
+}
+
+.bottom-left{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+
+  margin-left: 50px;
+  margin-bottom: 50px;
+
+  display: flex;
+  align-items: center;
+}
+
+.bottom-left-text{
+  margin-left: 15px;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #F4F4F4;
+}
+
+.login-div{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  background-color: #F4F4F4;
+}
+
+.login-centered{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%
+}
+
+.login-title{
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #3f3f3f;
+  margin-bottom: 50px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px;
+}
+
+.login-text {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3f3f3f;
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  width: 350px;
+}
+
+.submit-button {
+  display: flex;
+  background-color: #2982bd;
+  color: #f4f4f4;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 350px;
+  justify-content: center;
+}
+
+.submit-button:hover {
+  background-color: #80BCE5;
 }
