@@ -18,6 +18,7 @@
   font-size: 70px;
   font-weight: bold;
   color: #F4F4F4;
+  margin-bottom: 100px;
 }
 
 .login-button-centered{
@@ -141,4 +142,26 @@ input {
 
 .submit-button:hover {
   background-color: #80BCE5;
+}
+
+.register-text{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.register-text-first{
+  float: left;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.register-text-second{
+  text-decoration: none;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding-left: 5px;
+  color: #58A7DD;
+}
+
+.register-text-second:hover{
+  cursor: pointer;
 }
