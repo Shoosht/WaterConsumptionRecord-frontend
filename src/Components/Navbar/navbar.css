@@ -1,0 +1,26 @@
+.navbar{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    background-color: #2982bd;
+}
+
+.hamburger-icon{
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.nav-wcr{
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: #F4F4F4;
+    cursor: pointer;
+}
+
+.user-icon{
+    margin-right: 10px;
+    cursor: pointer;
+}

@@ -1,4 +1,4 @@
-import './FirstScreen.css';
+import './firstScreen.css';
 import githubLogo from '../../Components/github-mark.svg';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
@@ -59,6 +59,12 @@ function FirstScreen() {
                     </div>
                     <button type="submit" className="submit-button">Submit</button>
                   </form>
+                  <div className="guest">
+                    <div className="or">
+                      or
+                    </div>
+                    <Link to="/home" className="guest-link">View app as a guest.</Link>
+                  </div>
                 </div>
               </div>
             )}

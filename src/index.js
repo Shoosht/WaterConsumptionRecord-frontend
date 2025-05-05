@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import RegisterPage from './Pages/RegisterPage/RegisterPage';
+import RegisterPage from './Pages/RegisterPage/registerPage';
+import HomePage from './Pages/Home/homePage';
 
 import {
   createBrowserRouter,
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
     path: "register",
     element: <RegisterPage/>,
   },
+  {
+    path: "home",
+    element: <HomePage/>,
+  },
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

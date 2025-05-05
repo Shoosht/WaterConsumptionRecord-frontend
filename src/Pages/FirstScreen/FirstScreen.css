@@ -144,6 +144,40 @@ input {
   background-color: #80BCE5;
 }
 
+.guest{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.or{
+  margin-top: 40px;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.guest-link{
+  margin-top: 40px;
+  text-decoration: none;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  background-color: #f4f4f4;
+  color: #2982bd;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid #2982bd;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 350px;
+  justify-content: center;
+}
+
+.guest-link:hover {
+  border-color: #80BCE5;
+  color: #80BCE5;
+}
+
 .register-text{
   display: flex;
   margin-bottom: 10px;
