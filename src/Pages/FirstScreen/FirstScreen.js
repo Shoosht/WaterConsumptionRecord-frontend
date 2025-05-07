@@ -1,5 +1,5 @@
 import './firstScreen.css';
-import githubLogo from '../../Components/github-mark.svg';
+import githubLogo from '../../Components/Icons/github-mark.svg';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 

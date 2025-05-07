@@ -2,8 +2,7 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 14px;
-    padding-bottom: 14px;
+    height: 7vh;
     background-color: #2982bd;
 }
 
@@ -18,9 +17,37 @@
     font-weight: bold;
     color: #F4F4F4;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .user-icon{
     margin-right: 10px;
     cursor: pointer;
+}
+
+.dropdown-menu{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 93vh;
+    width: 210px;
+    background-color: #f4f4f4;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 9999; 
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.dropdown-menu-option{
+    padding-top: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #2982bd;
+}
+
+.dropdown-menu-option:active{
+    color: #03080c8f;
 }
