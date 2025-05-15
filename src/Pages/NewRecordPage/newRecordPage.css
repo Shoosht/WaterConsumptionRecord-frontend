@@ -1,0 +1,38 @@
+.submit-form-centered{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 93vh;
+}
+
+.add-new-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-text{
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #3f3f3f;
+    margin-bottom: 5px;
+}
+
+.record-button{
+    display: flex;
+    background-color: #2982bd;
+    color: #f4f4f4;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 350px;
+    justify-content: center;
+}
+
+.record-button:hover{
+    background-color: #80BCE5;
+}
