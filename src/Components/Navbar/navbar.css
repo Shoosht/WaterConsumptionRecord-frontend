@@ -1,4 +1,7 @@
 .navbar{
+    position:fixed;
+    top: 0;
+    width: 100%;
     display:flex;
     justify-content: space-between;
     align-items: center;
@@ -25,7 +28,7 @@
     cursor: pointer;
 }
 
-.dropdown-menu{
+.nav-dropdown-menu{
     position: fixed;
     bottom: 0;
     left: 0;
@@ -40,7 +43,7 @@
     gap: 1rem;
 }
 
-.dropdown-menu-option{
+.nav-dropdown-menu-option{
     padding-top: 10px;
     text-decoration: none;
     font-size: 20px;
@@ -48,6 +51,6 @@
     color: #2982bd;
 }
 
-.dropdown-menu-option:active{
+.nav-dropdown-menu-option:active{
     color: #03080c8f;
 }

@@ -1,12 +1,13 @@
 import Navbar from '../../Components/Navbar/navbar';
 import { useEffect, useState } from 'react';
+import { useRecordsContext } from '../../Hooks/useRecordContext';
 import {
     BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Rectangle
 } from 'recharts';
 import './homePage.css';
 
 function HomePage() {
-    const [records, setRecords] = useState([]);
+    const {records, dispatch} = useRecordsContext()
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [years, setYears] = useState([]);
     const [selectedYear, setSelectedYear] = useState(null);
@@ -19,7 +20,7 @@ function HomePage() {
             const json = await response.json();
 
             if (response.ok) {
-                setRecords(json);
+                dispatch({type: 'SET_RECORDS', payload: json})
                 const uniqueYears = [...new Set(json.map((item) => item.year))];
                 setYears(uniqueYears);
                 setSelectedYear(uniqueYears[uniqueYears.length - 1]);
@@ -27,7 +28,7 @@ function HomePage() {
         };
 
         fetchRecords();
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (selectedYear) {
@@ -55,8 +56,13 @@ function HomePage() {
 
    
     const CustomBar = (props) => {
-        const { x, y, width, height, index } = props;
+        const { x, y, width, height, index, payload } = props;
         const isHovered = index === hoveredIndex;
+
+        const handleBarClick = () => {
+            console.log("clicked bar ", payload._id)
+        }
+
         return (
             <Rectangle
                 x={x}
@@ -67,6 +73,7 @@ function HomePage() {
                 stroke={isHovered ? "#ff6600" : "none"}
                 onMouseOver={() => setHoveredIndex(index)}
                 onMouseOut={() => setHoveredIndex(null)}
+                onClick={handleBarClick}
             />
         );
     };

@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { RecordContextProvider } from './Context/recordContext';
 import RegisterPage from './Pages/RegisterPage/registerPage';
 import HomePage from './Pages/Home/homePage';
 import NewRecordPage from './Pages/NewRecordPage/newRecordPage';
+
 
 import {
   createBrowserRouter,
@@ -33,6 +35,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RecordContextProvider>
+      <RouterProvider router={router} />
+    </RecordContextProvider>
   </React.StrictMode>
 );

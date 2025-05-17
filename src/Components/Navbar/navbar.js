@@ -21,10 +21,10 @@ function Navbar() {
             </div>
 
             {menuOpen && (
-                <div className="dropdown-menu">
-                    <Link className="dropdown-menu-option" to="/home">Home</Link>
-                    <Link className="dropdown-menu-option" to="/newrecord">Add a water record</Link>
-                    <Link className="dropdown-menu-option" to="/logout">Logout</Link>
+                <div className="nav-dropdown-menu">
+                    <Link className="nav-dropdown-menu-option" to="/home">Home</Link>
+                    <Link className="nav-dropdown-menu-option" to="/newrecord">Add a water record</Link>
+                    <Link className="nav-dropdown-menu-option" to="/logout">Logout</Link>
                 </div>
             )}
 
