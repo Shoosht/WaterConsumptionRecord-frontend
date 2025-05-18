@@ -8,8 +8,9 @@
 }
 
 .barchart-h-w {
+  position: relative;
   height: 400px;
-  width: 600px;
+  width: 1000px;
 }
 
 .dropdown {
@@ -62,4 +63,26 @@
 
 .dropdown-item:hover {
   background-color: #f1f1f1;
+}
+
+.record-edit-button {
+  background-color: rgba(0, 162, 255, 0.85);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.record-delete-button {
+  background-color: rgba(255, 0, 0, 0.85);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  pointer-events: auto;
 }

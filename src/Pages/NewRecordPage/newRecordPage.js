@@ -10,6 +10,7 @@ function NewRecordPage() {
     const [month, setMonth] = useState('')
     const [amount, setAmount] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
     useEffect(() => {
         const fetchRecords = async () => {
@@ -41,6 +42,7 @@ function NewRecordPage() {
 
         if(!response.ok){
             setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
 
         if(response.ok){
@@ -48,6 +50,7 @@ function NewRecordPage() {
             setMonth('')
             setAmount('')
             setError(null)
+            setEmptyFields([])
             console.log('new record added', json)
             dispatch({type: 'CREATE_RECORD', payload: json})
         }
@@ -61,15 +64,15 @@ function NewRecordPage() {
                     <div className="form-text">
                         <div className="form-group">
                             <label className="input-text">Year:</label>
-                            <input className="nrp-input-field" type="number" onChange={(e)=>setYear(e.target.value)} value={year}></input>
+                            <input className={`nrp-input-field ${emptyFields.includes('year') ? 'error' : ''}`} type="number" onChange={(e)=>setYear(e.target.value)} value={year}></input>
                         </div>
                         <div className="form-group">
                             <label className="input-text">Month:</label>
-                            <input className="nrp-input-field" type="number" onChange={(e)=>setMonth(e.target.value)} value={month}></input>
+                            <input className={`nrp-input-field ${emptyFields.includes('month') ? 'error' : ''}`} type="number" onChange={(e)=>setMonth(e.target.value)} value={month}></input>
                         </div>
                         <div className="form-group">
                             <label className="input-text">Amount:</label>
-                            <input className="nrp-input-field" type="number" onChange={(e)=>setAmount(e.target.value)} value={amount}></input>
+                            <input className={`nrp-input-field ${emptyFields.includes('amount') ? 'error' : ''}`} type="number" onChange={(e)=>setAmount(e.target.value)} value={amount}></input>
                         </div>
                     </div>
                     <button className="record-button">Add the record</button>

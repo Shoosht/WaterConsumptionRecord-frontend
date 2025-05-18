@@ -8,14 +8,20 @@ export const recordsReducer = (state, action) => {
             return {
                 records: action.payload
             }
+            
         case 'CREATE_RECORD':
             return {
                 records: [action.payload, ...state.records]
             }
-            default:
-                return state
-        
-    }
+            
+        case 'DELETE_RECORD':
+            return {
+                records: state.records.filter((record) => record._id !== action.payload._id)
+            }
+
+        default:
+            return state
+    } 
 }
 
 export function RecordContextProvider ({ children }) {

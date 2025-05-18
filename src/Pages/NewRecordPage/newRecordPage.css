@@ -19,9 +19,25 @@
     margin-bottom: 5px;
 }
 
-.nrp-input-field{
+.nrp-input-field {
+    -moz-appearance: textfield;    
+    -webkit-appearance: none;      
+    appearance: none;              
+}
+
+.nrp-input-field::-webkit-outer-spin-button,
+.nrp-input-field::-webkit-inner-spin-button {
     -webkit-appearance: none;
+    margin: 0;
+}
+
+.nrp-input-field[type=number] {
     -moz-appearance: textfield;
+}
+
+.nrp-input-field.error{
+    border: 1px solid red;
+    outline: none;
 }
 
 .record-button{
