@@ -48,7 +48,7 @@ function RegisterPage() {
 							<div className="register-text-first">Already have an account?</div>
 							<Link to="/" className="register-text-second">Log in.</Link>
 						</div>
-						<button type="submit" disabled={isLoading} className="submit-button">Submit</button>
+						<button type="submit" disabled={isLoading} className="submit-button">Sign up</button>
 						{error && <div className="rp-error-text">{error}</div>}
 					</form>
 				</div>

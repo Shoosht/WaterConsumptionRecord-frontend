@@ -2,16 +2,17 @@ import './firstScreen.css';
 import githubLogo from '../../Components/Icons/github-mark.svg';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-
+import { useLogin } from '../../Hooks/useLogin';
 
 function FirstScreen() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const { login, error, isLoading } = useLogin()
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
     
-		console.log('Email:', email, 'Password:', password);
+		await login(email, password)
 	};
 
 	return (
@@ -47,7 +48,8 @@ function FirstScreen() {
 							<div className="register-text-first">Don't have an account yet?</div>
 							<Link to="/register" className="register-text-second">Sign up.</Link>
 						</div>
-						<button type="submit" className="submit-button">Submit</button>
+						<button type="submit" disabled={isLoading} className="submit-button">Login</button>
+						{error && <div className="fs-error-text">{error}</div>}
 					</form>
 					<div className="guest">
 						<div className="or">

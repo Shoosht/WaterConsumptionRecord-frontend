@@ -144,6 +144,16 @@ input {
   background-color: #80BCE5;
 }
 
+.fs-error-text {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid #e7195a;
+  color: #e7195a;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
 .guest{
   display: flex;
   flex-direction: column;

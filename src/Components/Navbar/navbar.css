@@ -9,6 +9,21 @@
     background-color: #2982bd;
 }
 
+.nav-left {
+    flex: 0 0 auto;
+}
+
+.nav-right {
+    flex: 0 0 auto;
+}
+
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
 .hamburger-icon{
     margin-left: 10px;
     cursor: pointer;
@@ -26,6 +41,25 @@
 .user-icon{
     margin-right: 10px;
     cursor: pointer;
+}
+
+.logout-icon{
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.nav-r-active{
+    display: flex;
+    align-items: center;
+}
+
+.nav-logged-email{
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    padding-right: 10px;
+    color: #F4F4F4;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .nav-dropdown-menu{
