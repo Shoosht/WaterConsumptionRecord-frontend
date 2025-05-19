@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { RecordContextProvider } from './Context/recordContext';
+import { AuthContextProvider } from './Context/authContext';
 import RegisterPage from './Pages/RegisterPage/registerPage';
 import HomePage from './Pages/Home/homePage';
 import NewRecordPage from './Pages/NewRecordPage/newRecordPage';
@@ -35,8 +36,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RecordContextProvider>
-      <RouterProvider router={router} />
-    </RecordContextProvider>
+    <AuthContextProvider>
+      <RecordContextProvider>
+        <RouterProvider router={router} />
+      </RecordContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
