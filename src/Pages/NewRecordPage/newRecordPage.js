@@ -76,7 +76,7 @@ function NewRecordPage() {
                         </div>
                     </div>
                     <button className="record-button">Add the record</button>
-                    {error && <div className="error">{error}</div>}
+                    {error && <div className="nrp-error-msg">{error}</div>}
                 </form>
             </div>
 
