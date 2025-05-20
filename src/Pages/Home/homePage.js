@@ -2,7 +2,9 @@ import Navbar from '../../Components/Navbar/navbar';
 import { useEffect, useState } from 'react';
 import { useRecordsContext } from '../../Hooks/useRecordContext';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Rectangle } from 'recharts';
+import { useAuthContext } from '../../Hooks/useAuthContext';
 import './homePage.css';
+
 
 function HomePage() {
 	const { records, dispatch } = useRecordsContext();
@@ -11,10 +13,17 @@ function HomePage() {
 	const [selectedYear, setSelectedYear] = useState(null);
 	const [open, setOpen] = useState(false);
 	const [hoverInfo, setHoverInfo] = useState(null);
+	const { user } = useAuthContext()
 
-	useEffect(() => {
+ 	useEffect(() => {
 		async function fetchRecords() {
-			const response = await fetch('/api/records');
+			const response = await fetch('/api/records', {
+				headers: {
+					'Authorization': `Bearer ${user.token}`
+				}
+			}
+			);
+
 			const json = await response.json();
 
 			if (response.ok) {
@@ -24,8 +33,12 @@ function HomePage() {
 				setSelectedYear(uniqueYears[uniqueYears.length - 1]);
 			}
 		}
-		fetchRecords();
-	}, [dispatch]);
+
+		if (user) {
+			fetchRecords();
+		}
+
+	}, [dispatch, user]);
 
 	useEffect(() => {
 		if (!selectedYear) return;
@@ -56,8 +69,15 @@ function HomePage() {
 	);
 
     const handleDeleteClick = async () => {
+		if (!user) {
+			return
+		}
+
         const response = await fetch('/api/records/' + hoverInfo.payload._id, {
-            method: 'DELETE'
+            method: 'DELETE',
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
         })
 
         const json = await response.json()

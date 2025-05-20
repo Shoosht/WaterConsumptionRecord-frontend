@@ -35,7 +35,9 @@ function Navbar() {
 
                 <div className="nav-right">
                     {!user && (
-                        <img className="user-icon" height="40px" src={userIcon} alt="User Icon" />
+                        <Link to="/">
+                            <img className="user-icon" height="40px" src={userIcon} alt="User Icon" />
+                        </Link>
                     )
                     }
                     {user && (
@@ -54,7 +56,7 @@ function Navbar() {
             {menuOpen && (
                 <div className="nav-dropdown-menu">
                     <Link className="nav-dropdown-menu-option" to="/home">Home</Link>
-                    <Link className="nav-dropdown-menu-option" to="/newrecord">Add a water record</Link>
+                    <Link className="nav-dropdown-menu-option" to="/newrecord">Manage records</Link>
                     <Link className="nav-dropdown-menu-option" to="/logout">Logout</Link>
                 </div>
             )}

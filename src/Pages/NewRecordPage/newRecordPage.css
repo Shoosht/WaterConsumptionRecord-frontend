@@ -1,14 +1,33 @@
+.nrp-parent{
+    display: flex;
+    flex-direction: row;
+    margin-top: 7vh;
+    position: relative;
+}
+
+
 .submit-form-centered{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 93vh;
+    width: 30%;
+    background-color: #F4F4F4;
 }
 
 .add-new-form{
     display: flex;
     flex-direction: column;
+    margin-bottom: 200px;
+}
+
+.nrp-title{
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: #3f3f3f;
+    margin-bottom: 40px;
 }
 
 .input-text{
@@ -67,3 +86,74 @@
 .record-button:hover{
     background-color: #80BCE5;
 }
+
+.nrp-record-title{
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: #3f3f3f;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    margin-left: 40px;
+    
+}
+
+.nrp-record-box{
+    display: flex;
+    flex-direction: row;
+    margin-left: 40px;
+    border: 1px solid #6664df;
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.nrp-record-amount-parent{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+    padding-top: 10px;
+
+}
+
+.nrp-record-amount-left{
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #3f3f3f;
+    
+
+}
+.nrp-record-amount-right{
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: #3f3f3f;
+    margin-left: 15px;
+    
+
+}
+
+.nrp-record-date{
+    position: relative;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #3f3f3f;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    margin-left: 40px;
+    padding-left: 100px;
+}
+
+.nrp-record-createdat {
+    font-size: 14px;
+    color: #999;
+    margin-left: auto;
+    margin-top: 5px;
+    padding-top: 40px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    text-align: left;
+  }
