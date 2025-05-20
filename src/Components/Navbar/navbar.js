@@ -41,12 +41,14 @@ function Navbar() {
                     {user && (
                         <div className="nav-r-active">
                             <div className="nav-logged-email">{user.email}</div>
-                            <img className="logout-icon" onClick={handleLogoutClick} height="40px" src={logoutIcon} alt="Logout Icon" />
+                            <Link to="/">
+                                <img className="logout-icon" onClick={handleLogoutClick} height="40px" src={logoutIcon} alt="Logout Icon" />
+                            </Link>
                         </div>
                     )
                     }
                 </div>
-                
+
             </div>
 
             {menuOpen && (
