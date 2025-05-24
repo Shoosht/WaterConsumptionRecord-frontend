@@ -19,6 +19,13 @@ export const recordsReducer = (state, action) => {
                 records: state.records.filter((record) => record._id !== action.payload._id)
             }
 
+        case 'UPDATE_RECORD':
+            return {
+                records: state.records.map((record) => 
+                    record._id === action.payload._id ? action.payload : record
+                )
+            }
+
         default:
             return state
     } 

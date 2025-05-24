@@ -19,7 +19,8 @@ function NewRecordPage() {
 	const { user } = useAuthContext()
 	const [isPaid, setIsPaid] = useState(false)
 	const [paymentPopup, setPaymentPopup] = useState(false)
-	const [activeCard, setActiveCard] = useState()
+	const [activeCard, setActiveCard] = useState('visa')
+	const [recordID, setRecordID] = useState(null)
 
 	useEffect(() => {
 		const fetchRecords = async () => {
@@ -75,6 +76,40 @@ function NewRecordPage() {
 			console.log('new record added', json)
 			dispatch({ type: 'CREATE_RECORD', payload: json })
 		}
+	}
+
+	const handlePayNow = async (e) => {
+		if (e) e.preventDefault();
+
+		if (!user) {
+			return
+		}
+
+		console.log("recordID ", recordID)
+
+        const response = await fetch('/api/records/' + recordID, {
+            method: 'PATCH',
+			headers: {
+				"Content-Type": "application/json",
+				'Authorization': `Bearer ${user.token}`
+			},
+			body: JSON.stringify({ "paid": true })
+        })
+
+        const json = await response.json()
+
+		console.log("json ", json)
+
+        if(response.ok){
+            dispatch({type: 'UPDATE_RECORD', payload: json});
+            setPaymentPopup(false)
+			setRecordID(null)
+        }
+	}
+
+	const handlePayNowOption = (id) => {
+		setPaymentPopup(true)
+		setRecordID(id)
 	}
 
 	return (
@@ -157,7 +192,7 @@ function NewRecordPage() {
 							) : (
 								<div className="nrp-paid-false">
 									<button
-										onClick={() => setPaymentPopup(true)}
+										onClick={() => handlePayNowOption(record._id)}
 										className="nrp-pay-button"
 									>
 										Pay
@@ -216,7 +251,7 @@ function NewRecordPage() {
 										<input type="text" placeholder="MM/YY" maxLength="5" className="nrp-input half" />
 										<input type="text" placeholder="CRC" maxLength="4" className="nrp-input half" />
 									</div>
-									<button type="submit" className="nrp-pay-submit">Pay Now</button>
+									<button type="submit" onClick={(e)=>handlePayNow(e)} className="nrp-pay-submit">Pay Now</button>
 								</form>
                                 <div className="nrp-popw-lorem">{Array(12).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit.').join('')}</div>
 							</div>
