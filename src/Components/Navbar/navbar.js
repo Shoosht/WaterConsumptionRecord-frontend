@@ -30,7 +30,7 @@ function Navbar() {
                 </div>
 
                 <div className="nav-center">
-                    <Link to="/home" className="nav-wcr">WCR</Link>
+                    <Link to="/home" className="nav-wcr">Water Consumption Record</Link>
                 </div>
 
                 <div className="nav-right">
@@ -57,6 +57,7 @@ function Navbar() {
                 <div className="nav-dropdown-menu">
                     <Link className="nav-dropdown-menu-option" to="/home">Home</Link>
                     <Link className="nav-dropdown-menu-option" to="/newrecord">Manage records</Link>
+                    <Link className="nav-dropdown-menu-option" to="/bills">Manage account and bills</Link>
                     <Link className="nav-dropdown-menu-option" to="/logout">Logout</Link>
                 </div>
             )}

@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { RecordContextProvider } from './Context/recordContext';
 import { AuthContextProvider } from './Context/authContext';
+import { BillsContextProvider } from './Context/billContext';
 import RegisterPage from './Pages/RegisterPage/registerPage';
 import HomePage from './Pages/Home/homePage';
 import NewRecordPage from './Pages/NewRecordPage/newRecordPage';
-
+import BillsPage from './Pages/ManageBills/billsPage';
 
 import {
   createBrowserRouter,
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     path: "newrecord",
     element: <NewRecordPage/>,
   },
+  {
+    path: "bills",
+    element: <BillsPage/>,
+  },
 
 ]);
 
@@ -38,7 +43,9 @@ root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <RecordContextProvider>
-        <RouterProvider router={router} />
+        <BillsContextProvider>
+          <RouterProvider router={router} />
+        </BillsContextProvider>
       </RecordContextProvider>
     </AuthContextProvider>
   </React.StrictMode>

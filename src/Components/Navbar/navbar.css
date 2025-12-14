@@ -83,6 +83,16 @@
     font-size: 20px;
     font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #2982bd;
+    border-bottom: 1px solid #dad7d7;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    transition: background-color 0.3s ease;
+    transition: border-radius 0.3s ease;
+}
+
+.nav-dropdown-menu-option:hover{
+   background-color: #eaeaec;
+   border-radius: 10px;
 }
 
 .nav-dropdown-menu-option:active{
