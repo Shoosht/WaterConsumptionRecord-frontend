@@ -1,10 +1,35 @@
+.home-main{
+  background-color: #F4F4F4;
+}
+
 .records {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  margin-top: 7vh;
   height: 93vh;
   width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.home-title{
+  align-self: flex-start;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #361010;
+  text-decoration: none;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.home-left{
+  align-self: flex-start;
+  width: 40%;
+}
+
+.home-right{
+  width: 60%;
 }
 
 .barchart-h-w {

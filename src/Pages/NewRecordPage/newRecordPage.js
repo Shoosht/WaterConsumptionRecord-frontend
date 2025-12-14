@@ -64,6 +64,7 @@ function NewRecordPage() {
 		if (!response.ok) {
 			setError(json.error)
 			setEmptyFields(json.emptyFields)
+			return
 		}
 
 		if (response.ok) {
@@ -76,6 +77,35 @@ function NewRecordPage() {
 			console.log('new record added', json)
 			dispatch({ type: 'CREATE_RECORD', payload: json })
 		}
+
+
+		const bill = {
+			year: json.year,
+    		month: json.month,
+   		 	amount: json.amount,
+			record_id: json._id,
+    		paid: json.paid,
+    		paid_by: null
+		}
+
+		const bill_response = await fetch('/api/bills', {
+			method: 'POST',
+			body: JSON.stringify(bill),
+			headers: {
+			  'Content-Type': 'application/json',
+			  'Authorization': `Bearer ${user.token}`
+			}
+		})
+
+		const bill_json = await bill_response.json()
+
+		if(!bill_response.ok){
+			console.log(bill_json.error)
+		}
+
+		if(bill_response.ok){
+
+		}
 	}
 
 	const handlePayNow = async (e) => {
@@ -87,7 +117,7 @@ function NewRecordPage() {
 
 		console.log("recordID ", recordID)
 
-        const response = await fetch('/api/records/' + recordID, {
+        const response_1 = await fetch('/api/records/' + recordID, {
             method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json",
@@ -96,12 +126,26 @@ function NewRecordPage() {
 			body: JSON.stringify({ "paid": true })
         })
 
-        const json = await response.json()
+        const json_1 = await response_1.json()
 
-		console.log("json ", json)
+		console.log("json ", json_1)
 
-        if(response.ok){
-            dispatch({type: 'UPDATE_RECORD', payload: json});
+
+		const response_2 = await fetch('/api/bills/' + recordID, {
+            method: 'PATCH',
+			headers: {
+				"Content-Type": "application/json",
+				'Authorization': `Bearer ${user.token}`
+			},
+			body: JSON.stringify({ "paid": true, "paid_by": user.email })
+        })
+
+        const json_2 = await response_2.json()
+
+		console.log("json ", json_2)
+
+        if(response_1.ok && response_2.ok){
+            dispatch({type: 'UPDATE_RECORD', payload: json_1});
             setPaymentPopup(false)
 			setRecordID(null)
         }
@@ -128,6 +172,7 @@ function NewRecordPage() {
 									type="number"
 									onChange={(e) => setYear(e.target.value)}
 									value={year}
+									placeholder="1900-2025"
 								/>
 							</div>
 
@@ -138,6 +183,7 @@ function NewRecordPage() {
 									type="number"
 									onChange={(e) => setMonth(e.target.value)}
 									value={month}
+									placeholder="0-12"
 								/>
 							</div>
 
@@ -148,6 +194,7 @@ function NewRecordPage() {
 									type="number"
 									onChange={(e) => setAmount(e.target.value)}
 									value={amount}
+									placeholder="per cubic meter (m³)"
 								/>
 							</div>
 
@@ -176,7 +223,7 @@ function NewRecordPage() {
 							<div className="nrp-record-content">
 								<div className="nrp-record-amount-parent">
 									<div className="nrp-record-amount-left">Amount: </div>
-									<div className="nrp-record-amount-right">{record.amount}m³</div>
+									<div className="nrp-record-amount-right">{record.amount} m³</div>
 								</div>
 								<div className="nrp-record-meta">
 									<div className="nrp-record-createdat">
