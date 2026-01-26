@@ -1,4 +1,5 @@
 import Navbar from '../../Components/Navbar/navbar';
+import Footer from '../../Components/Footer/footer';
 import { useEffect, useState } from 'react';
 import { useRecordsContext } from '../../Hooks/useRecordContext';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Rectangle, CartesianGrid, Tooltip } from 'recharts';
@@ -279,6 +280,7 @@ function HomePage() {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 }

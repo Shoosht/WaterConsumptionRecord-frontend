@@ -1,11 +1,12 @@
 import './billsPage.css';
 import Navbar from "../../Components/Navbar/navbar";
+import Footer from "../../Components/Footer/footer";
 import { useAuthContext } from "../../Hooks/useAuthContext";
 import { useBillsContext } from '../../Hooks/useBillContext';
 import { useState, useEffect } from "react";
 
 function BillsPage() {
-    const { user } = useAuthContext();
+    const { user, dispatch: authDispatch } = useAuthContext();
     const { bills, dispatch } = useBillsContext()
 
     useEffect(() => {
@@ -30,21 +31,24 @@ function BillsPage() {
         name: false,
         city: false,
         address: false,
-        email: false
+        email: false,
+        monthlyLimit: false
     });
 
     const [formData, setFormData] = useState({
         name: '',
         city: '',
         address: '',
-        email: ''
+        email: '',
+        monthlyLimit: ''
     });
 
     const [originalData, setOriginalData] = useState({
         name: '',
         city: '',
         address: '',
-        email: ''
+        email: '',
+        monthlyLimit: ''
     });
 
     useEffect(() => {
@@ -53,18 +57,60 @@ function BillsPage() {
                 name: user.name || '',
                 city: user.city || '',
                 address: user.address || '',
-                email: user.email || ''
+                email: user.email || '',
+                monthlyLimit: user.monthlyLimit || ''
             };
             setFormData(userData);
             setOriginalData(userData);
         }
     }, [user]);
 
+    const handleSaveClick = async (field) => {
+        try {
+            const response = await fetch(`/api/user/${user._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify({ [field]: formData[field] })
+            });
+
+            const json = await response.json();
+
+            if (response.ok) {
+                setOriginalData(prev => ({
+                    ...prev,
+                    [field]: formData[field]
+                }));
+                setEditableFields(prev => ({
+                    ...prev,
+                    [field]: false
+                }));
+                const updatedUser = {
+                    ...user,
+                    [field]: formData[field]
+                };
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                
+                authDispatch({ type: 'LOGIN', payload: updatedUser });
+            } else {
+                console.error('Update failed:', json.error);
+            }
+        } catch (error) {
+            console.error('Error updating user:', error);
+        }
+    };
+
     const handleEditClick = (field) => {
-        setEditableFields(prev => ({
-            ...prev,
-            [field]: !prev[field]
-        }));
+        if (editableFields[field]) {
+            handleSaveClick(field);
+        } else {
+            setEditableFields(prev => ({
+                ...prev,
+                [field]: !prev[field]
+            }));
+        }
     };
 
     const handleCancelClick = (field) => {
@@ -102,14 +148,16 @@ function BillsPage() {
                     <div className="bp-account">
                         <div className="bp-account-title">Account information</div>
                         <div className="bp-account-info">
-                            {["name", "city", "address", "email"].map((field) => (
+                            {["name", "city", "address", "email", "monthlyLimit"].map((field) => (
                                 <div key={field}>
-                                    <div className={"bp-acc-title-under"}>{Capitalize(field)}</div>
+                                    <div className={"bp-acc-title-under"}>
+                                        {field === 'monthlyLimit' ? 'Monthly Limit (m³)' : Capitalize(field)}
+                                    </div>
 
                                     <div className="bp-field-row">
                                         {editableFields[field] ? (
                                             <input
-                                                type="text"
+                                                type={field === 'monthlyLimit' ? 'number' : 'text'}
                                                 name={field}
                                                 value={formData[field]}
                                                 onChange={handleChange}
@@ -117,7 +165,10 @@ function BillsPage() {
                                             />
                                         ) : (
                                             <div className={`bp-acc-${field}`}>
-                                                {formData[field]}
+                                                {field === 'monthlyLimit' 
+                                                    ? `${formData[field]} m³` 
+                                                    : formData[field]
+                                                }
                                             </div>
                                         )}
                                         <div className="bp-button-group">
@@ -188,6 +239,7 @@ function BillsPage() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

@@ -1,440 +1,420 @@
 .nrp-parent{
-    display: flex;
-    flex-direction: row;
-    margin-top: 7vh;
-    height: 93vh;
-    position: relative;
+  display: flex;
+  flex-direction: row;
+  margin-top: 7vh;
+  min-height: calc(93vh - 60px);
+  position: relative;
 }
 
 .nrp-right-child{
-    background-color: #f4f4f4;
-    margin-left: 30%;
-    width: 70%;
-    position: relative;
-    padding-top: 7vh;
-    height: calc(100vh - 7vh);
-    overflow-y: auto;
+  background-color: #f4f4f4;
+  margin-left: 30%;
+  width: 70%;
+  position: relative;
+  padding-top: 7vh;
+  padding-bottom: 80px;
+  min-height: calc(100vh - 7vh);
 }
 
 .submit-form-centered{
-    display: flex;
-    position: fixed;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 30%;
-    background-color: #F4F4F4;
-    border-right: 1px solid #dad7d7;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 7vh);
+  width: 30%;
+  background-color: #F4F4F4;
+  border-right: 1px solid #dad7d7;
+  top: 7vh;
 }
 
 .add-new-form{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 200px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 200px;
 }
 
 .nrp-title{
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 25px;
-    font-weight: bold;
-    color: #3f3f3f;
-    margin-bottom: 40px;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #3f3f3f;
+  margin-bottom: 40px;
 }
 
 .input-text{
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: #3f3f3f;
-    margin-bottom: 5px;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3f3f3f;
+  margin-bottom: 5px;
 }
 
 .nrp-check-par{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #3f3f3f;
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3f3f3f;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  white-space: nowrap;
 }
 
 .nrp-checkbox{
-    margin-right: 200px;
-    padding-bottom: 20px;
-    transform: scale(1.7)
+  margin-right: 200px;
+  padding-bottom: 20px;
+  transform: scale(1.7);
 }
 
 .nrp-input-field {
-    -moz-appearance: textfield;    
-    -webkit-appearance: none;      
-    appearance: none;              
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .nrp-input-field::-webkit-outer-spin-button,
 .nrp-input-field::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .nrp-input-field[type=number] {
-    -moz-appearance: textfield;
+  -moz-appearance: textfield;
 }
 
 .nrp-input-field.error{
-    border: 1px solid red;
-    outline: none;
+  border: 1px solid red;
+  outline: none;
 }
 
 .nrp-error-msg{
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding: 10px;
-    background: #ffefef;
-    border: 1px solid #e7195a;
-    color: #e7195a;
-    border-radius: 4px;
-    margin: 20px 0;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid #e7195a;
+  color: #e7195a;
+  border-radius: 4px;
+  margin: 20px 0;
 }
 
 .record-button{
-    display: flex;
-    background-color: #2982bd;
-    color: #f4f4f4;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 350px;
-    justify-content: center;
+  display: flex;
+  background-color: #2982bd;
+  color: #f4f4f4;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 350px;
+  justify-content: center;
 }
 
 .record-button:hover{
-    background-color: #80BCE5;
+  background-color: #80BCE5;
 }
 
 .nrp-record-title{
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 25px;
-    font-weight: bold;
-    color: #3f3f3f;
-    margin-bottom: 40px;
-    margin-top: 40px;
-    margin-left: 40px;
-    
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #3f3f3f;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  margin-left: 40px;
 }
 
 .nrp-record-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch; 
-    margin-left: 115px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    width: 700px;
-    height: 150px;
-    margin-top: 15px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  margin-left: 115px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 700px;
+  height: 150px;
+  margin-top: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  overflow: hidden;
 }
-  
+
 .nrp-record-amount-parent{
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 10px;
-    padding-top: 10px;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 10px;
+  padding-top: 10px;
 }
 
 .nrp-record-amount-left{
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: #3f3f3f;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3f3f3f;
 }
 
 .nrp-record-amount-right{
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 25px;
-    font-weight: bold;
-    color: #3f3f3f;
-    margin-left: 15px;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #3f3f3f;
+  margin-left: 15px;
 }
 
-
 .nrp-record-meta{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .nrp-record-createdat{
-    flex: 1;
-    width: 50%;
-    font-size: 14px;
-    color: #999;
-    margin-left: auto;
-    margin-top: 35px;
-    padding-top: 40px;
-    margin-left: 15px;
-    margin-bottom: 10px;
-    text-align: left;
+  flex: 1;
+  width: 50%;
+  font-size: 14px;
+  color: #999;
+  margin-left: auto;
+  margin-top: 35px;
+  padding-top: 40px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  text-align: left;
 }
 
-
 .nrp-record-date{
-    position: absolute;
-    flex: 1;
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    color: #3f3f3f;
-    width:50%;
-    
-    margin-top: 70px;
-    margin-left: 90px;
-    padding-left: 100px;
-    padding-bottom: 0px;
+  position: absolute;
+  flex: 1;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3f3f3f;
+  width:50%;
+  margin-top: 70px;
+  margin-left: 90px;
+  padding-left: 100px;
+  padding-bottom: 0px;
 }
 
 .nrp-paid-true,
 .nrp-paid-false{
-    display: flex;
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    align-items: center;
-    justify-content: center;
-    padding: 0 50px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    width: 40px;
-    min-height: 100%;
+  display: flex;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  align-items: center;
+  justify-content: center;
+  padding: 0 50px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  width: 40px;
+  min-height: 100%;
 }
 
 .nrp-paid-true{
-    background-color: #e6f9ec;
-    color: #256029;
-    border-left: 4px solid #4CAF50;
+  background-color: #e6f9ec;
+  color: #256029;
+  border-left: 4px solid #4CAF50;
 }
 
 .nrp-paid-false{
-    background-color: #fff4f4;
-    color: #a72828;
-    border-left: 4px solid #d33;
+  background-color: #fff4f4;
+  color: #a72828;
+  border-left: 4px solid #d33;
 }
 
 .nrp-pay-button {
-	padding: 10px 20px;
-	background-color: #e53935; 
-	color: white;
-	border: none;
-	border-radius: 8px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .nrp-pay-button:hover {
-	background-color: #c62828;
+  background-color: #c62828;
 }
 
 body.popup-active .nrp-parent {
-	filter: blur(50px);
-	pointer-events: none;
+  filter: blur(50px);
+  pointer-events: none;
 }
 
 .nrp-popup-overlay {
-	position: fixed;
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background: rgba(0, 0, 0, 0.5);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	z-index: 1000;
+  position: fixed;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
 .nrp-popup-window {
-	background-color: #fff;
-	padding: 30px;
-	border-radius: 12px;
-	width: 1200px;
-	max-width: 90%;
-	position: relative;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 1200px;
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
 .nrp-popup-title {
-	margin-bottom: 20px;
-	text-align: center;
-	font-size: 24px;
-	font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .nrp-payment-container {
-	display: flex;
-	gap: 30px;
+  display: flex;
+  gap: 30px;
 }
 
 .nrp-payment-left {
-	width: 40%;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .nrp-payment-right {
-	width: 500px;
-    max-width: 500px;
+  width: 500px;
+  max-width: 500px;
 }
 
 .nrp-card-options {
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
 }
 
 .nrp-card-option {
-	background-color: #f7f7f7;
-	padding: 12px 16px;
-	border-radius: 10px;
-	cursor: pointer;
-	border: 2px solid transparent;
-	transition: all 0.2s ease;
-	font-weight: 500;
-	width: 100%;
-	text-align: center;
+  position: relative;
+  width: 60%;
+  height: 140px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  background: white;
 }
 
 .nrp-card-option:hover,
 .nrp-card-option.active {
-	border-color: #35ade5;
-	background-color: #f9fdfd;
-}
-
-.nrp-payment-form {
-	display: flex;
-	flex-direction: column;
-    margin-top: 50px;
-	gap: 12px;
-}
-
-.nrp-input {
-	padding: 10px;
-	border-radius: 8px;
-	border: 1px solid #ccc;
-	font-size: 16px;
-	width: 100%;
-}
-
-.nrp-input:focus {
-	outline: none;
-	border-color: #35ade5;
-	box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2);
-}
-
-.nrp-input-row {
-	display: flex;
-	gap: 12px;
-}
-
-.nrp-input.half {
-	flex: 1;
-}
-
-.nrp-pay-submit {
-	background-color: #e53935;
-	color: white;
-	padding: 10px;
-	border: none;
-	border-radius: 8px;
-	cursor: pointer;
-	font-size: 16px;
-	margin-top: 10px;
-	transition: background 0.3s ease;
-}
-
-.nrp-pay-submit:hover {
-	background-color: #d32f2f;
-}
-
-.nrp-close-btn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	background: none;
-	border: none;
-	font-size: 16px;
-	color: #888;
-	cursor: pointer;
-}
-
-.nrp-card-option {
-    position: relative;
-    width: 60%;
-    height: 140px;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-    background: white;
-}
-
-.nrp-card-option.active {
-    border-color: #007bff;
+  border-color: #007bff;
 }
 
 .nrp-card-icon {
-    width: 80px;
-    height: auto;
-    margin-bottom: 16px;
-    user-select: none;
+  width: 80px;
+  height: auto;
+  margin-bottom: 16px;
+  user-select: none;
 }
 
 .nrp-round-checkbox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 24px;
-    height: 24px;
-    border: 2px solid #007bff;
-    border-radius: 50%;
-    background: white;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  background: white;
+  box-sizing: border-box;
 }
-  
+
 .nrp-round-checkbox-fill {
-    width: 12px;
-    height: 12px;
-    background-color: #007bff;
-    border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  background-color: #007bff;
+  border-radius: 50%;
+}
+
+.nrp-payment-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  gap: 12px;
+}
+
+.nrp-input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+}
+
+.nrp-input:focus {
+  outline: none;
+  border-color: #35ade5;
+  box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2);
+}
+
+.nrp-input-row {
+  display: flex;
+  gap: 12px;
+}
+
+.nrp-input.half {
+  flex: 1;
+}
+
+.nrp-pay-submit {
+  background-color: #e53935;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.nrp-pay-submit:hover {
+  background-color: #d32f2f;
+}
+
+.nrp-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #888;
+  cursor: pointer;
 }
 
 .nrp-popw-lorem {
-    font-size: 6px;
-    color: grey;
-    position: relative;
-    margin-top: 10px; 
-    line-height: 1.2;
+  font-size: 6px;
+  color: grey;
+  position: relative;
+  margin-top: 10px;
+  line-height: 1.2;
 }
 
 .nrp-popw-lorem::after {
-    content: "©";
+  content: "©";
 }

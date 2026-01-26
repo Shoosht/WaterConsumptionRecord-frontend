@@ -131,7 +131,8 @@
 .bp-acc-name,
 .bp-acc-city,
 .bp-acc-address,
-.bp-acc-email {
+.bp-acc-email,
+.bp-acc-monthlyLimit {
   font-size: 16px;
   color: #333;
   flex: 1;
@@ -145,9 +146,10 @@
 }
 
 .bp-bottom {
-  margin-top: 35px;
+  margin-top: 0;
   width: 100%;
-  max-width: 800px;
+  background-color: #e3f2fd;
+  padding: 40px 0;
 }
 
 .bp-bottom-title {
@@ -166,6 +168,9 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bp-bill-box {

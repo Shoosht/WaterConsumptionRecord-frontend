@@ -48,6 +48,16 @@ function NewRecordPage() {
 			return
 		}
 
+		const duplicateRecord = records.find(
+			record => record.year === parseInt(year) && record.month === parseInt(month)
+		)
+
+		if (duplicateRecord) {
+			setError('A record with that date already exists.')
+			setEmptyFields(['year', 'month'])
+			return
+		}
+
 		const record = { year, month, amount, paid: isPaid }
 
 		const response = await fetch('/api/records', {
@@ -78,22 +88,21 @@ function NewRecordPage() {
 			dispatch({ type: 'CREATE_RECORD', payload: json })
 		}
 
-
 		const bill = {
 			year: json.year,
-    		month: json.month,
-   		 	amount: json.amount,
+			month: json.month,
+			amount: json.amount,
 			record_id: json._id,
-    		paid: json.paid,
-    		paid_by: null
+			paid: json.paid,
+			paid_by: null
 		}
 
 		const bill_response = await fetch('/api/bills', {
 			method: 'POST',
 			body: JSON.stringify(bill),
 			headers: {
-			  'Content-Type': 'application/json',
-			  'Authorization': `Bearer ${user.token}`
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${user.token}`
 			}
 		})
 
@@ -117,38 +126,37 @@ function NewRecordPage() {
 
 		console.log("recordID ", recordID)
 
-        const response_1 = await fetch('/api/records/' + recordID, {
-            method: 'PATCH',
+		const response_1 = await fetch('/api/records/' + recordID, {
+			method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json",
 				'Authorization': `Bearer ${user.token}`
 			},
 			body: JSON.stringify({ "paid": true })
-        })
+		})
 
-        const json_1 = await response_1.json()
+		const json_1 = await response_1.json()
 
 		console.log("json ", json_1)
 
-
 		const response_2 = await fetch('/api/bills/' + recordID, {
-            method: 'PATCH',
+			method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json",
 				'Authorization': `Bearer ${user.token}`
 			},
 			body: JSON.stringify({ "paid": true, "paid_by": user.email })
-        })
+		})
 
-        const json_2 = await response_2.json()
+		const json_2 = await response_2.json()
 
 		console.log("json ", json_2)
 
-        if(response_1.ok && response_2.ok){
-            dispatch({type: 'UPDATE_RECORD', payload: json_1});
-            setPaymentPopup(false)
+		if(response_1.ok && response_2.ok){
+			dispatch({type: 'UPDATE_RECORD', payload: json_1});
+			setPaymentPopup(false)
 			setRecordID(null)
-        }
+		}
 	}
 
 	const handlePayNowOption = (id) => {
@@ -253,7 +261,7 @@ function NewRecordPage() {
 
 			{paymentPopup && (
 				<div className="nrp-popup-overlay">
-					<div className="nrp-popup-window">
+					<div className="nrp-popupa-window">
 						<h2 className="nrp-popup-title">Payment Details</h2>
 						<div className="nrp-payment-container">
 							<div className="nrp-payment-left">
@@ -300,7 +308,7 @@ function NewRecordPage() {
 									</div>
 									<button type="submit" onClick={(e)=>handlePayNow(e)} className="nrp-pay-submit">Pay Now</button>
 								</form>
-                                <div className="nrp-popw-lorem">{Array(12).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit.').join('')}</div>
+								<div className="nrp-popw-lorem">{Array(12).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit.').join('')}</div>
 							</div>
 						</div>
 						<button onClick={() => setPaymentPopup(false)} className="nrp-close-btn">
