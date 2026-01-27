@@ -58,7 +58,7 @@ function Navbar() {
                     <Link className="nav-dropdown-menu-option" to="/home">Home</Link>
                     <Link className="nav-dropdown-menu-option" to="/newrecord">Manage records</Link>
                     <Link className="nav-dropdown-menu-option" to="/bills">Manage account and bills</Link>
-                    <Link className="nav-dropdown-menu-option" to="/logout">Logout</Link>
+                    <Link className="nav-dropdown-menu-option" onClick={handleLogoutClick} to="/">Logout</Link>
                 </div>
             )}
 

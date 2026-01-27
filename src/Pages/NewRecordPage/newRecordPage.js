@@ -180,7 +180,7 @@ function NewRecordPage() {
 									type="number"
 									onChange={(e) => setYear(e.target.value)}
 									value={year}
-									placeholder="1900-2025"
+									placeholder="1900-2026"
 								/>
 							</div>
 

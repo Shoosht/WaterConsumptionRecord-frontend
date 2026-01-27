@@ -20,6 +20,8 @@ export const billsReducer = (state, action) => {
                     bill._id === action.payload._id ? action.payload : bill
                 )
             }
+        case 'LOGOUT':
+            return { bills: [] }
 
         default:
             return state
@@ -28,7 +30,7 @@ export const billsReducer = (state, action) => {
 
 export function BillsContextProvider ({ children }) {
     const [state, dispatch] = useReducer(billsReducer, {
-        bills: null
+        bills: []
     })
 
     return (

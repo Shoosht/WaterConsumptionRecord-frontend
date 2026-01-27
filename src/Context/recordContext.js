@@ -25,6 +25,8 @@ export const recordsReducer = (state, action) => {
                     record._id === action.payload._id ? action.payload : record
                 )
             }
+        case 'LOGOUT':
+            return { records: [] }
 
         default:
             return state
@@ -33,7 +35,7 @@ export const recordsReducer = (state, action) => {
 
 export function RecordContextProvider ({ children }) {
     const [state, dispatch] = useReducer(recordsReducer, {
-        records: null
+        records: []
     })
 
     return (

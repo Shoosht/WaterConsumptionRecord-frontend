@@ -9,6 +9,14 @@ function BillsPage() {
     const { user, dispatch: authDispatch } = useAuthContext();
     const { bills, dispatch } = useBillsContext()
 
+    const [passwordData, setPasswordData] = useState({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    });
+    const [passwordError, setPasswordError] = useState('');
+    const [passwordSuccess, setPasswordSuccess] = useState('');
+
     useEffect(() => {
 		const fetchBills = async () => {
 			const response = await fetch('/api/bills', {
@@ -140,6 +148,46 @@ function BillsPage() {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
+    const handlePasswordChange = async (e) => {
+        e.preventDefault();
+        setPasswordError('');
+        setPasswordSuccess('');
+    
+        if (passwordData.newPassword !== passwordData.confirmPassword) {
+            setPasswordError('New passwords do not match.');
+            return;
+        }
+    
+        try {
+            const response = await fetch(`/api/user/${user._id}/password`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify({
+                    currentPassword: passwordData.currentPassword,
+                    newPassword: passwordData.newPassword
+                })
+            });
+    
+            const json = await response.json();
+    
+            if (response.ok) {
+                setPasswordSuccess('Password changed successfully!');
+                setPasswordData({
+                    currentPassword: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                });
+            } else {
+                setPasswordError(json.error);
+            }
+        } catch (error) {
+            setPasswordError('Error changing password.');
+        }
+    }
+
     return (
         <div>
             <Navbar />
@@ -192,6 +240,36 @@ function BillsPage() {
                             ))}
                         </div>
                     </div>
+                </div>
+
+                <div className="bp-password-section">
+                    <div className="bp-acc-title-under">Change Password</div>
+                    <form onSubmit={handlePasswordChange} className="bp-password-form">
+                        <input
+                            type="password"
+                            placeholder="Current Password"
+                            value={passwordData.currentPassword}
+                            onChange={(e) => setPasswordData(prev => ({...prev, currentPassword: e.target.value}))}
+                            className="bp-input"
+                        />
+                        <input
+                            type="password"
+                            placeholder="New Password"
+                            value={passwordData.newPassword}
+                            onChange={(e) => setPasswordData(prev => ({...prev, newPassword: e.target.value}))}
+                            className="bp-input"
+                        />
+                        <input
+                            type="password"
+                            placeholder="Confirm New Password"
+                            value={passwordData.confirmPassword}
+                            onChange={(e) => setPasswordData(prev => ({...prev, confirmPassword: e.target.value}))}
+                            className="bp-input"
+                        />
+                        <button type="submit" className="bp-password-btn">Change Password</button>
+                        {passwordError && <div className="bp-error">{passwordError}</div>}
+                        {passwordSuccess && <div className="bp-success">{passwordSuccess}</div>}
+                    </form>
                 </div>
                 
                 <div className="bp-bottom">

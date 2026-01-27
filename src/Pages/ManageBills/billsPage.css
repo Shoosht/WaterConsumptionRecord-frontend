@@ -145,6 +145,54 @@
   align-items: center;
 }
 
+.bp-password-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  margin-bottom: 30px;
+}
+
+.bp-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.bp-password-btn {
+  background-color: #2982bd;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.bp-password-btn:hover {
+  background-color: #224a94;
+}
+
+.bp-error {
+  background-color: #ffefef;
+  border: 1px solid #e7195a;
+  color: #e7195a;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.bp-success {
+  background-color: #e8f5e9;
+  border: 1px solid #4CAF50;
+  color: #2e7d32;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
 .bp-bottom {
   margin-top: 0;
   width: 100%;

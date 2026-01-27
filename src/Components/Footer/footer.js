@@ -34,7 +34,7 @@ function Footer() {
                 </div>
 
                 <div className="footer-copyright">
-                    Copyright © 2025 All rights reserved | Water Consumption Record
+                    Copyright © 2026 All rights reserved | Water Consumption Record
                 </div>
             </div>
         </footer>
