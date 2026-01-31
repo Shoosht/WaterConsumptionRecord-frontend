@@ -4,6 +4,9 @@ import Footer from "../../Components/Footer/footer";
 import { useAuthContext } from "../../Hooks/useAuthContext";
 import { useBillsContext } from '../../Hooks/useBillContext';
 import { useState, useEffect } from "react";
+import visaIcon from '../../Components/Icons/visa-electron.svg';
+import masterCardIcon from '../../Components/Icons/mastercard.svg';
+import americanExpressIcon from '../../Components/Icons/american-express.svg';
 
 function BillsPage() {
     const { user, dispatch: authDispatch } = useAuthContext();
@@ -16,6 +19,9 @@ function BillsPage() {
     });
     const [passwordError, setPasswordError] = useState('');
     const [passwordSuccess, setPasswordSuccess] = useState('');
+    const [paymentPopup, setPaymentPopup] = useState(false);
+    const [activeCard, setActiveCard] = useState('visa');
+    const [billID, setBillID] = useState(null);
 
     useEffect(() => {
 		const fetchBills = async () => {
@@ -138,6 +144,36 @@ function BillsPage() {
             ...prev,
             [name]: value
         }));
+    };
+
+    const handlePayNowOption = (id) => {
+        setPaymentPopup(true);
+        setBillID(id);
+    };
+
+    const handlePayNow = async (e) => {
+        if (e) e.preventDefault();
+
+        if (!user) {
+            return;
+        }
+
+        const bill_response = await fetch('/api/bills/' + billID, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${user.token}`
+            },
+            body: JSON.stringify({ "paid": true, "paid_by": user.email })
+        });
+
+        const bill_json = await bill_response.json();
+
+        if (bill_response.ok) {
+            dispatch({ type: 'UPDATE_BILL', payload: bill_json });
+            setPaymentPopup(false);
+            setBillID(null);
+        }
     };
 
     if (!user) {
@@ -306,6 +342,7 @@ function BillsPage() {
                                 ) : (
                                     <div className="bp-paid-false">
                                         <button
+                                            onClick={() => handlePayNowOption(bill._id)}
                                             className="bp-pay-button"
                                         >
                                             Pay
@@ -317,6 +354,66 @@ function BillsPage() {
                     </div>
                 </div>
             </div>
+
+            {paymentPopup && (
+                <div className="bp-popup-overlay">
+                    <div className="bp-popup-window">
+                        <h2 className="bp-popup-title">Payment Details</h2>
+                        <div className="bp-payment-container">
+                            <div className="bp-payment-left">
+                                <div className="bp-card-options">
+                                    <div
+                                        className={`bp-card-option ${activeCard === 'visa' ? 'active' : ''}`}
+                                        onClick={() => setActiveCard('visa')}
+                                    >
+                                        <img src={visaIcon} alt="visa" className="bp-card-icon" />
+                                        <div className="bp-round-checkbox">
+                                            {activeCard === 'visa' && <div className="bp-round-checkbox-fill"></div>}
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className={`bp-card-option ${activeCard === 'master' ? 'active' : ''}`}
+                                        onClick={() => setActiveCard('master')}
+                                    >
+                                        <img src={masterCardIcon} alt="master" className="bp-card-icon" />
+                                        <div className="bp-round-checkbox">
+                                            {activeCard === 'master' && <div className="bp-round-checkbox-fill"></div>}
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className={`bp-card-option ${activeCard === 'american' ? 'active' : ''}`}
+                                        onClick={() => setActiveCard('american')}
+                                    >
+                                        <img src={americanExpressIcon} alt="american" className="bp-card-icon" />
+                                        <div className="bp-round-checkbox">
+                                            {activeCard === 'american' && <div className="bp-round-checkbox-fill"></div>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bp-payment-right">
+                                <form className="bp-payment-form">
+                                    <input type="text" placeholder="Cardholder Name" className="bp-input" />
+                                    <input type="text" placeholder="Card Number" maxLength="19" className="bp-input" />
+                                    <div className="bp-input-row">
+                                        <input type="text" placeholder="MM/YY" maxLength="5" className="bp-input half" />
+                                        <input type="text" placeholder="CRC" maxLength="4" className="bp-input half" />
+                                    </div>
+                                    <button type="submit" onClick={(e)=>handlePayNow(e)} className="bp-pay-submit">Pay Now</button>
+                                </form>
+                                <div className="bp-popw-lorem">{Array(12).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit.').join('')}</div>
+                            </div>
+                        </div>
+                        <button onClick={() => setPaymentPopup(false)} className="bp-close-btn">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+
             <Footer />
         </div>
     );
