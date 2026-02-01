@@ -3,6 +3,7 @@ import Navbar from "../../Components/Navbar/navbar";
 import Footer from "../../Components/Footer/footer";
 import { useAuthContext } from "../../Hooks/useAuthContext";
 import { useBillsContext } from '../../Hooks/useBillContext';
+import { useRecordsContext } from '../../Hooks/useRecordContext'; 
 import { useState, useEffect } from "react";
 import visaIcon from '../../Components/Icons/visa-electron.svg';
 import masterCardIcon from '../../Components/Icons/mastercard.svg';
@@ -10,7 +11,8 @@ import americanExpressIcon from '../../Components/Icons/american-express.svg';
 
 function BillsPage() {
     const { user, dispatch: authDispatch } = useAuthContext();
-    const { bills, dispatch } = useBillsContext()
+    const { bills, dispatch: billDispatch } = useBillsContext()
+    const { dispatch: recordDispatch } = useRecordsContext()
 
     const [passwordData, setPasswordData] = useState({
         currentPassword: '',
@@ -33,13 +35,13 @@ function BillsPage() {
 			const json = await response.json();
 
 			if (response.ok) {
-				dispatch({ type: 'SET_BILLS', payload: json })
+				billDispatch({ type: 'SET_BILLS', payload: json })
 			}
 		};
 		if (user) {
 			fetchBills();
 		}
-	}, [dispatch, user]);
+	}, [billDispatch, user]);
 
     const [editableFields, setEditableFields] = useState({
         name: false,
@@ -169,8 +171,20 @@ function BillsPage() {
 
         const bill_json = await bill_response.json();
 
-        if (bill_response.ok) {
-            dispatch({ type: 'UPDATE_BILL', payload: bill_json });
+        const record_response = await fetch('/api/records/' + billID, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${user.token}`
+            },
+            body: JSON.stringify({ "paid": true })
+        });
+
+        const record_json = await record_response.json();
+
+        if (bill_response.ok && record_response.ok) {
+            billDispatch({ type: 'UPDATE_BILL', payload: bill_json });
+            recordDispatch({ type: 'UPDATE_RECORD', payload: record_json });
             setPaymentPopup(false);
             setBillID(null);
         }
@@ -286,21 +300,21 @@ function BillsPage() {
                             placeholder="Current Password"
                             value={passwordData.currentPassword}
                             onChange={(e) => setPasswordData(prev => ({...prev, currentPassword: e.target.value}))}
-                            className="bp-input"
+                            className="bp-input-pass"
                         />
                         <input
                             type="password"
                             placeholder="New Password"
                             value={passwordData.newPassword}
                             onChange={(e) => setPasswordData(prev => ({...prev, newPassword: e.target.value}))}
-                            className="bp-input"
+                            className="bp-input-pass"
                         />
                         <input
                             type="password"
                             placeholder="Confirm New Password"
                             value={passwordData.confirmPassword}
                             onChange={(e) => setPasswordData(prev => ({...prev, confirmPassword: e.target.value}))}
-                            className="bp-input"
+                            className="bp-input-pass"
                         />
                         <button type="submit" className="bp-password-btn">Change Password</button>
                         {passwordError && <div className="bp-error">{passwordError}</div>}
@@ -342,7 +356,7 @@ function BillsPage() {
                                 ) : (
                                     <div className="bp-paid-false">
                                         <button
-                                            onClick={() => handlePayNowOption(bill._id)}
+                                            onClick={() => handlePayNowOption(bill.record_id)}
                                             className="bp-pay-button"
                                         >
                                             Pay
@@ -396,8 +410,8 @@ function BillsPage() {
 
                             <div className="bp-payment-right">
                                 <form className="bp-payment-form">
-                                    <input type="text" placeholder="Cardholder Name" className="bp-input" />
-                                    <input type="text" placeholder="Card Number" maxLength="19" className="bp-input" />
+                                    <input type="text" placeholder="Cardholder Name" className="bp-input-popup" />
+                                    <input type="text" placeholder="Card Number" maxLength="19" className="bp-input-popup" />
                                     <div className="bp-input-row">
                                         <input type="text" placeholder="MM/YY" maxLength="5" className="bp-input half" />
                                         <input type="text" placeholder="CRC" maxLength="4" className="bp-input half" />

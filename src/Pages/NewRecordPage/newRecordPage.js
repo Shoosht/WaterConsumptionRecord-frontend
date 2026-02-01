@@ -248,6 +248,10 @@ function NewRecordPage() {
 	}
 
 	const handleDeleteConfirm = async () => {
+		if (!user) {
+			return
+		}
+
 		const response = await fetch('/api/records/' + deleteRecord._id, {
 			method: 'DELETE',
 			headers: {
@@ -257,7 +261,14 @@ function NewRecordPage() {
 
 		const json = await response.json()
 
-		if(response.ok){
+		const bill_response = await fetch('/api/bills/' + deleteRecord._id, {
+			method: 'DELETE',
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		})
+
+		if(response.ok && bill_response.ok){
 			dispatch({type: 'DELETE_RECORD', payload: json});
 			setDeletePopup(false)
 			setDeleteRecord(null)

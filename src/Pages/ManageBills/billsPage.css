@@ -86,11 +86,33 @@
 }
 
 .bp-input {
+  width: 33vh;
+  height: 4vh;
+  margin-right: 12px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.bp-input-popup {
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
   width: 100%;
+}
+
+.bp-input-pass {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 300px;
 }
 
 .bp-edit-btn {

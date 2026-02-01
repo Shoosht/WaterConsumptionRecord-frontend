@@ -42,7 +42,7 @@ function Navbar() {
                     }
                     {user && (
                         <div className="nav-r-active">
-                            <div className="nav-logged-email">{user.email}</div>
+                            <Link className="nav-logged-email" to="/bills">{user.email}</Link> 
                             <Link to="/">
                                 <img className="logout-icon" onClick={handleLogoutClick} height="40px" src={logoutIcon} alt="Logout Icon" />
                             </Link>
@@ -55,10 +55,10 @@ function Navbar() {
 
             {menuOpen && (
                 <div className="nav-dropdown-menu">
-                    <Link className="nav-dropdown-menu-option" to="/home">Home</Link>
-                    <Link className="nav-dropdown-menu-option" to="/newrecord">Manage records</Link>
-                    <Link className="nav-dropdown-menu-option" to="/bills">Manage account and bills</Link>
-                    <Link className="nav-dropdown-menu-option" onClick={handleLogoutClick} to="/">Logout</Link>
+                    <Link className="nav-dropdown-menu-option" to="/home">HOME</Link>
+                    <Link className="nav-dropdown-menu-option" to="/newrecord">RECORDS</Link>
+                    <Link className="nav-dropdown-menu-option" to="/bills">ACCOUNT AND BILLS</Link>
+                    <Link className="nav-dropdown-menu-option" onClick={handleLogoutClick} to="/">LOGOUT</Link>
                 </div>
             )}
 
