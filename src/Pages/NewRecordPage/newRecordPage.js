@@ -8,6 +8,8 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import visaIcon from '../../Components/Icons/visa-electron.svg';
 import masterCardIcon from '../../Components/Icons/mastercard.svg';
 import americanExpressIcon from '../../Components/Icons/american-express.svg';
+import deleteIcon from '../../Components/Icons/delete.svg';
+import editIcon from '../../Components/Icons/edit.svg';
 
 function NewRecordPage() {
 	const { records, dispatch } = useRecordsContext()
@@ -21,6 +23,13 @@ function NewRecordPage() {
 	const [paymentPopup, setPaymentPopup] = useState(false)
 	const [activeCard, setActiveCard] = useState('visa')
 	const [recordID, setRecordID] = useState(null)
+	const [editPopup, setEditPopup] = useState(false)
+	const [deletePopup, setDeletePopup] = useState(false)
+	const [editYear, setEditYear] = useState('')
+	const [editMonth, setEditMonth] = useState('')
+	const [editAmount, setEditAmount] = useState('')
+	const [editPaid, setEditPaid] = useState(false)
+	const [deleteRecord, setDeleteRecord] = useState(null)
 
 	useEffect(() => {
 		const fetchRecords = async () => {
@@ -84,7 +93,6 @@ function NewRecordPage() {
 			setIsPaid(false)
 			setError(null)
 			setEmptyFields([])
-			console.log('new record added', json)
 			dispatch({ type: 'CREATE_RECORD', payload: json })
 		}
 
@@ -111,10 +119,6 @@ function NewRecordPage() {
 		if(!bill_response.ok){
 			console.log(bill_json.error)
 		}
-
-		if(bill_response.ok){
-
-		}
 	}
 
 	const handlePayNow = async (e) => {
@@ -124,9 +128,7 @@ function NewRecordPage() {
 			return
 		}
 
-		console.log("recordID ", recordID)
-
-		const response_1 = await fetch('/api/records/' + recordID, {
+		const record_response = await fetch('/api/records/' + recordID, {
 			method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json",
@@ -135,11 +137,9 @@ function NewRecordPage() {
 			body: JSON.stringify({ "paid": true })
 		})
 
-		const json_1 = await response_1.json()
+		const record_json = await record_response.json()
 
-		console.log("json ", json_1)
-
-		const response_2 = await fetch('/api/bills/' + recordID, {
+		const bill_response = await fetch('/api/bills/' + recordID, {
 			method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json",
@@ -148,12 +148,10 @@ function NewRecordPage() {
 			body: JSON.stringify({ "paid": true, "paid_by": user.email })
 		})
 
-		const json_2 = await response_2.json()
+		await bill_response.json()
 
-		console.log("json ", json_2)
-
-		if(response_1.ok && response_2.ok){
-			dispatch({type: 'UPDATE_RECORD', payload: json_1});
+		if(record_response.ok && bill_response.ok){
+			dispatch({type: 'UPDATE_RECORD', payload: record_json});
 			setPaymentPopup(false)
 			setRecordID(null)
 		}
@@ -162,6 +160,108 @@ function NewRecordPage() {
 	const handlePayNowOption = (id) => {
 		setPaymentPopup(true)
 		setRecordID(id)
+	}
+
+	const handleEditOption = (record) => {
+		setEditPopup(true)
+		setRecordID(record._id)
+		setEditYear(record.year)
+		setEditMonth(record.month)
+		setEditAmount(record.amount)
+		setEditPaid(record.paid)
+	}
+
+	const handleEditSubmit = async (e) => {
+		e.preventDefault()
+
+		const originalRecord = records.find(r => r._id === recordID)
+		const paymentStatusChanged = originalRecord && originalRecord.paid !== editPaid
+
+		const response = await fetch('/api/records/' + recordID, {
+			method: 'PATCH',
+			headers: {
+				"Content-Type": "application/json",
+				'Authorization': `Bearer ${user.token}`
+			},
+			body: JSON.stringify({ 
+				year: editYear, 
+				month: editMonth, 
+				amount: editAmount, 
+				paid: editPaid 
+			})
+		})
+
+		const json = await response.json()
+
+		if(response.ok){
+			if(paymentStatusChanged && editPaid){
+				await fetch('/api/bills/' + recordID, {
+					method: 'DELETE',
+					headers: {
+						'Authorization': `Bearer ${user.token}`
+					}
+				})
+
+				const bill = {
+					year: json.year,
+					month: json.month,
+					amount: json.amount,
+					record_id: json._id,
+					paid: true,
+					paid_by: user.email
+				}
+
+				await fetch('/api/bills', {
+					method: 'POST',
+					body: JSON.stringify(bill),
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${user.token}`
+					}
+				})
+			} else {
+				await fetch('/api/bills/' + recordID, {
+					method: 'PATCH',
+					headers: {
+						"Content-Type": "application/json",
+						'Authorization': `Bearer ${user.token}`
+					},
+					body: JSON.stringify({ 
+						year: editYear,
+						month: editMonth,
+						amount: editAmount,
+						paid: editPaid,
+						price: editAmount * 1.73
+					})
+				})
+			}
+
+			dispatch({type: 'UPDATE_RECORD', payload: json});
+			setEditPopup(false)
+			setRecordID(null)
+		}
+	}
+
+	const handleDeleteOption = (record) => {
+		setDeletePopup(true)
+		setDeleteRecord(record)
+	}
+
+	const handleDeleteConfirm = async () => {
+		const response = await fetch('/api/records/' + deleteRecord._id, {
+			method: 'DELETE',
+			headers: {
+				'Authorization': `Bearer ${user.token}`
+			}
+		})
+
+		const json = await response.json()
+
+		if(response.ok){
+			dispatch({type: 'DELETE_RECORD', payload: json});
+			setDeletePopup(false)
+			setDeleteRecord(null)
+		}
 	}
 
 	return (
@@ -176,7 +276,7 @@ function NewRecordPage() {
 							<div className="form-group">
 								<label className="input-text">Year:</label>
 								<input
-									className={`nrp-input-field ${emptyFields.includes('year') ? 'error' : ''}`}
+									className={`nrp-input-field ${emptyFields?.includes('year') ? 'error' : ''}`}
 									type="number"
 									onChange={(e) => setYear(e.target.value)}
 									value={year}
@@ -187,7 +287,7 @@ function NewRecordPage() {
 							<div className="form-group">
 								<label className="input-text">Month:</label>
 								<input
-									className={`nrp-input-field ${emptyFields.includes('month') ? 'error' : ''}`}
+									className={`nrp-input-field ${emptyFields?.includes('month') ? 'error' : ''}`}
 									type="number"
 									onChange={(e) => setMonth(e.target.value)}
 									value={month}
@@ -198,7 +298,7 @@ function NewRecordPage() {
 							<div className="form-group">
 								<label className="input-text">Amount:</label>
 								<input
-									className={`nrp-input-field ${emptyFields.includes('amount') ? 'error' : ''}`}
+									className={`nrp-input-field ${emptyFields?.includes('amount') ? 'error' : ''}`}
 									type="number"
 									onChange={(e) => setAmount(e.target.value)}
 									value={amount}
@@ -228,6 +328,14 @@ function NewRecordPage() {
 					<div className="nrp-record-title">Your records:</div>
 					{records && records.map((record) => (
 						<div key={record._id} className="nrp-record-box">
+							<div className="nrp-record-actions">
+								<button onClick={() => handleEditOption(record)} className="nrp-action-btn edit">
+									<img src={editIcon} alt="Edit" className="nrp-action-icon" />
+								</button>
+								<button onClick={() => handleDeleteOption(record)} className="nrp-action-btn delete">
+									<img src={deleteIcon} alt="Delete" className="nrp-action-icon" />
+								</button>
+							</div>
 							<div className="nrp-record-content">
 								<div className="nrp-record-amount-parent">
 									<div className="nrp-record-amount-left">Amount: </div>
@@ -259,9 +367,89 @@ function NewRecordPage() {
 				</div>
 			</div>
 
+			{editPopup && (
+				<div className="nrp-popup-overlay">
+					<div className="nrp-popup-window">
+						<h2 className="nrp-popup-title">Edit Record</h2>
+						<form onSubmit={handleEditSubmit} className="nrp-edit-form">
+							<div className="nrp-edit-field">
+								<label className="input-text">Year:</label>
+								<input
+									type="number"
+									value={editYear}
+									onChange={(e) => setEditYear(e.target.value)}
+									className="nrp-input"
+								/>
+							</div>
+							<div className="nrp-edit-field">
+								<label className="input-text">Month:</label>
+								<input
+									type="number"
+									value={editMonth}
+									onChange={(e) => setEditMonth(e.target.value)}
+									className="nrp-input"
+								/>
+							</div>
+							<div className="nrp-edit-field">
+								<label className="input-text">Amount:</label>
+								<input
+									type="number"
+									value={editAmount}
+									onChange={(e) => setEditAmount(e.target.value)}
+									className="nrp-input"
+								/>
+							</div>
+	
+							<div className="nrp-edit-field-payment">
+								<label className="nrp-checkbox-text">
+									Payment done:
+									<input
+										type="checkbox"
+										checked={editPaid}
+										onChange={() => setEditPaid(!editPaid)}
+										className="nrp-checkbox-small"
+									/>
+								</label>
+							</div>
+							
+							<div className="nrp-popup-buttons">
+								<button type="submit" className="nrp-confirm-btn">Save Changes</button>
+								<button type="button" onClick={() => setEditPopup(false)} className="nrp-cancel-popup-btn">
+									Cancel
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			)}
+
+			{deletePopup && deleteRecord && (
+				<div className="nrp-popup-overlay">
+					<div className="nrp-popup-window">
+						<h2 className="nrp-popup-title">Delete Record</h2>
+						<div className="nrp-delete-content">
+							<p>Are you sure you want to delete this record?</p>
+							<div className="nrp-delete-info">
+								<strong>Date:</strong> {deleteRecord.month}/{deleteRecord.year}
+								<br />
+								<strong>Amount:</strong> {deleteRecord.amount} m³
+							</div>
+						</div>
+						<div className="nrp-popup-buttons">
+							<button onClick={handleDeleteConfirm} className="nrp-delete-confirm-btn">
+								Delete
+							</button>
+							<button onClick={() => setDeletePopup(false)} className="nrp-cancel-popup-btn">
+								Cancel
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+
 			{paymentPopup && (
 				<div className="nrp-popup-overlay">
-					<div className="nrp-popupa-window">
+					<div className="nrp-popup-window">
 						<h2 className="nrp-popup-title">Payment Details</h2>
 						<div className="nrp-payment-container">
 							<div className="nrp-payment-left">

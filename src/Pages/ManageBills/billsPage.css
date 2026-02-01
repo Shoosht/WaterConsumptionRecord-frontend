@@ -12,7 +12,7 @@
 }
 
 .bp-account-title{
-  margin-top: 25px;
+  margin-top: 15px;
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 25px;
   font-weight: bold;
@@ -25,7 +25,7 @@
   font-size: 16px;
   font-weight: bold;
   color: #3f3f3f;
-  margin-bottom: 8px;
+  margin-bottom: 0px;
 }
 
 .bp-account-title {
@@ -86,16 +86,11 @@
 }
 
 .bp-input {
-  flex: 1;
-  margin-right: 12px;
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
   border-radius: 8px;
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: white;
-  width: 33vh;
-  height: 4vh;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
 }
 
 .bp-edit-btn {
@@ -146,7 +141,7 @@
 }
 
 .bp-password-section {
-  margin-top: 30px;
+  margin-top: 15px;
   padding-top: 20px;
   margin-bottom: 30px;
 }
@@ -154,6 +149,7 @@
 .bp-password-form {
   display: flex;
   flex-direction: column;
+  padding-top: 20px;
   gap: 12px;
   max-width: 500px;
   margin: 0 auto;

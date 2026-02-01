@@ -64,8 +64,8 @@
 }
 
 .nrp-checkbox{
-  margin-right: 200px;
-  padding-bottom: 20px;
+  margin-right: 0px;
+  padding-bottom: 0px;
   transform: scale(1.7);
 }
 
@@ -130,6 +130,7 @@
 
 .nrp-record-box {
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: stretch;
   margin-left: 115px;
@@ -263,13 +264,14 @@ body.popup-active .nrp-parent {
   background-color: #fff;
   padding: 30px;
   border-radius: 12px;
-  width: 1200px;
+  width: 800px;
   max-width: 90%;
   position: relative;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
 .nrp-popup-title {
+  padding-top: 20px;
   margin-bottom: 20px;
   text-align: center;
   font-size: 24px;
@@ -289,6 +291,7 @@ body.popup-active .nrp-parent {
 }
 
 .nrp-payment-right {
+  padding-top: 25px;
   width: 500px;
   max-width: 500px;
 }
@@ -418,3 +421,157 @@ body.popup-active .nrp-parent {
 .nrp-popw-lorem::after {
   content: "©";
 }
+
+.nrp-record-actions{
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  top: 10px;
+  right: 120px;
+}
+
+.nrp-action-icon{
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
+}
+
+.nrp-action-btn{
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nrp-action-btn.edit{
+  background-color: #2982bd;
+  color: white;
+}
+
+.nrp-action-btn.edit:hover{
+  background-color: #224a94;
+}
+
+.nrp-action-btn.delete{
+  background-color: #dc3545;
+  color: white;
+  font-size: 20px;
+}
+
+.nrp-action-btn.delete:hover{
+  background-color: #c82333;
+}
+
+.nrp-edit-form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.nrp-edit-field{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nrp-checkbox-small{
+  margin-right: 0px;
+  transform: scale(1.2);
+}
+
+.nrp-checkbox-text{
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3f3f3f;
+  margin: 0;
+}
+
+.nrp-delete-content{
+  padding: 20px;
+  text-align: center;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.nrp-delete-info{
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fff4f4;
+  border-left: 4px solid #dc3545;
+  border-radius: 4px;
+  text-align: left;
+  line-height: 1.8;
+}
+
+.nrp-popup-buttons{
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.nrp-confirm-btn{
+  background-color: #28a745;
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.nrp-confirm-btn:hover{
+  background-color: #218838;
+}
+
+.nrp-delete-confirm-btn{
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.nrp-delete-confirm-btn:hover{
+  background-color: #c82333;
+}
+
+.nrp-cancel-popup-btn{
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.nrp-cancel-popup-btn:hover{
+  background-color: #5a6268;
+}
+
+.nrp-edit-field-payment{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-left: 0;
+  padding-left: 10px;
+}
+
