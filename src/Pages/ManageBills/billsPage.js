@@ -24,6 +24,7 @@ function BillsPage() {
     const [paymentPopup, setPaymentPopup] = useState(false);
     const [activeCard, setActiveCard] = useState('visa');
     const [billID, setBillID] = useState(null);
+    const [filterOption, setFilterOption] = useState('all');
 
     useEffect(() => {
 		const fetchBills = async () => {
@@ -238,6 +239,22 @@ function BillsPage() {
         }
     }
 
+    const years = bills ? bills.map(bill => bill.year) : [];
+	const availableYears = [...new Set(years)].sort((a, b) => b - a);
+
+	const filteredBills = bills ? bills.filter(bill => {
+		switch (filterOption) {
+			case 'all':
+				return true;
+			case 'paid':
+				return bill.paid;
+			case 'unpaid':
+				return !bill.paid;
+			default:
+				return bill.year === parseInt(filterOption);
+		}
+	}) : [];
+
     return (
         <div>
             <Navbar />
@@ -326,8 +343,23 @@ function BillsPage() {
                     <div className="bp-bottom-title">
                         <div>Bills</div>
                     </div>
+                    <div className="bp-filter-container">
+                        <label className="bp-filter-label">Sort by:</label>
+                        <select 
+                            value={filterOption} 
+                            onChange={(e) => setFilterOption(e.target.value)}
+                            className="bp-filter-dropdown"
+                        >
+                            <option value="paid">Paid</option>
+                            <option value="unpaid">Unpaid</option>
+                            <option value="all">All Bills</option>
+                            {availableYears.map(year => (
+                                <option key={year} value={year}>{year}</option>
+                            ))}
+                        </select>
+                    </div>
                     <div className="bp-bottom-bills">
-                        {bills && bills.map((bill) => (
+                        {filteredBills.map((bill) => (
                             <div key={bill._id} className="bp-bill-box">
                                 <div className="bp-bill-content">
                                     <div className="bp-bill-amount-parent">

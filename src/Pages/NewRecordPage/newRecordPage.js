@@ -30,6 +30,7 @@ function NewRecordPage() {
 	const [editAmount, setEditAmount] = useState('')
 	const [editPaid, setEditPaid] = useState(false)
 	const [deleteRecord, setDeleteRecord] = useState(null)
+	const [sortOption, setSortOption] = useState('All')
 
 	useEffect(() => {
 		const fetchRecords = async () => {
@@ -48,6 +49,27 @@ function NewRecordPage() {
 			fetchRecords();
 		}
 	}, [dispatch, user]);
+
+	const years = records ? records.map(record => record.year) : [];
+	const availableYears = [...new Set(years)].sort((a, b) => b - a);
+
+	const filteredRecords = records ? records.filter(record => {
+		if (sortOption === 'All') {
+			return true
+		}
+		if (sortOption === 'Paid') {
+			return record.paid === true
+		}
+		if (sortOption === 'Unpaid') {
+			return record.paid === false
+		}
+		return record.year === parseInt(sortOption)
+	}).sort((a, b) => {
+		if (b.year !== a.year) {
+			return b.year - a.year
+		}
+		return b.month - a.month
+	}) : []
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -336,8 +358,25 @@ function NewRecordPage() {
 				</div>
 
 				<div className="nrp-right-child">
-					<div className="nrp-record-title">Your records:</div>
-					{records && records.map((record) => (
+					<div className="nrp-record-header">
+						<div className="nrp-record-title">Your records:</div>
+						<div className="nrp-sort-container">
+							<span className="nrp-sort-text">Filter by:</span>
+							<select 
+								className="nrp-sort-select" 
+								value={sortOption} 
+								onChange={(e) => setSortOption(e.target.value)}
+							>
+								<option value="All">All</option>
+								<option value="Unpaid">Unpaid</option>
+								<option value="Paid">Paid</option>
+								{availableYears.map(year => (
+									<option key={year} value={year}>{year}</option>
+								))}
+							</select>
+						</div>
+					</div>
+					{filteredRecords && filteredRecords.map((record) => (
 						<div key={record._id} className="nrp-record-box">
 							<div className="nrp-record-actions">
 								<button onClick={() => handleEditOption(record)} className="nrp-action-btn edit">
@@ -365,12 +404,14 @@ function NewRecordPage() {
 								<div className="nrp-paid-true">Payment done</div>
 							) : (
 								<div className="nrp-paid-false">
-									<button
-										onClick={() => handlePayNowOption(record._id)}
-										className="nrp-pay-button"
-									>
-										Pay
-									</button>
+									<div className="nrp-paid-false">
+										<button
+											onClick={() => handlePayNowOption(record._id)}
+											className="nrp-pay-button"
+										>
+											Pay
+										</button>
+									</div>
 								</div>
 							)}
 						</div>
