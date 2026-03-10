@@ -71,7 +71,7 @@
 
 .nav-dropdown-menu{
     position: fixed;
-    bottom: 0;
+    top: 7vh;
     left: 0;
     height: 93vh;
     width: 260px;
@@ -120,4 +120,23 @@
 
 .nav-dropdown-menu-option:not(:last-child){
 	border-bottom: none;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-logged-email{
+        display: none;
+    }
+
+    .nav-wcr{
+        font-size: 1.3rem;
+    }
+
+    .logout-icon{
+        margin-right: 1.3rem;
+    }
+
+    .nav-dropdown-menu{
+        height: 93vh;
+    }
+
 }

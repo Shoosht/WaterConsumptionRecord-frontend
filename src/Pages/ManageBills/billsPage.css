@@ -581,3 +581,144 @@
   border-color: #2982bd;
   box-shadow: 0 0 0 2px rgba(41, 130, 189, 0.2);
 }
+
+@media screen and (max-width: 768px) {
+  .bp-parent {
+    padding: 0 5%;
+  }
+
+  .bp-account-info {
+    width: 100%;
+  }
+
+  .bp-field-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .bp-input,
+  .bp-acc-name,
+  .bp-acc-city,
+  .bp-acc-address,
+  .bp-acc-email,
+  .bp-acc-monthlyLimit {
+    width: 80vw;
+    height: auto;
+    margin-right: 0;
+  }
+
+  .bp-button-group {
+    align-self: flex-end;
+  }
+
+  .bp-input-pass {
+    width: 80vw;
+  }
+
+  .bp-password-form {
+    width: 100%;
+    padding: 0;
+  }
+
+  .bp-bottom {
+    width: 100vw;
+  }
+
+  .bp-filter-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 5%;
+    margin-bottom: 15px;
+  }
+
+  .bp-filter-label {
+    margin-bottom: 5px;
+  }
+
+  .bp-filter-dropdown {
+    width: 100%;
+  }
+
+  .bp-bottom-bills {
+    padding: 0 5%;
+    max-width: 100%;
+  }
+
+  .bp-bill-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .bp-bill-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .bp-bill-amount-parent,
+  .bp-bill-meta,
+  .bp-bill-price-parent {
+    width: 100%;
+  }
+
+  .bp-paid-status {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .bp-paid-false {
+    width: 100%;
+  }
+
+  .bp-pay-button {
+    width: 100%;
+  }
+
+  .bp-popup-window {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .bp-payment-container {
+    flex-direction: column;
+  }
+
+  .bp-payment-left,
+  .bp-payment-right {
+    width: 100%;
+  }
+
+  .bp-card-option {
+    width: 100%;
+    height: 80px;
+  }
+
+  .bp-card-icon {
+    width: 50px;
+    margin-bottom: 8px;
+  }
+
+  .bp-round-checkbox {
+    width: 18px;
+    height: 18px;
+  }
+
+  .bp-round-checkbox-fill {
+    width: 9px;
+    height: 9px;
+  }
+
+  .bp-payment-form {
+    margin-top: 20px;
+  }
+
+  .bp-popup-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-top: 10px;
+  }
+}

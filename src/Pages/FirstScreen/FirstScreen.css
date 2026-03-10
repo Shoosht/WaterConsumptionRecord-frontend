@@ -209,3 +209,33 @@ input {
 .register-text-second:hover{
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .title {
+    display: none;
+  }
+  
+  .login-div {
+    width: 100%;
+  }
+  
+  .bottom-left {
+    display: none;
+  }
+
+  .form-group {
+    max-width: 80vw;
+  }
+
+  input {
+    width: 80vw;
+  }
+
+  .submit-button {
+    width: 80vw;
+  }
+
+  .guest-link {
+    width: 80vw;
+  }
+}

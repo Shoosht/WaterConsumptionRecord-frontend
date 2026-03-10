@@ -14,6 +14,7 @@ function HomePage() {
 	const [selectedYear, setSelectedYear] = useState(null);
 	const [open, setOpen] = useState(false);
 	const { user } = useAuthContext();
+	const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 	const [stats, setStats] = useState({
 		totalConsumption: 0,
 		averagePerMonth: 0,
@@ -22,6 +23,15 @@ function HomePage() {
 		comparisonPercent: 0,
 		comparisonType: 'same'
 	});
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth <= 768);
+		};
+		
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
 
  	useEffect(() => {
 		async function fetchRecords() {
@@ -96,6 +106,15 @@ function HomePage() {
 		"July", "August", "September", "October", "November", "December"
 	][value - 1];
 
+	const formatterMobile = (value) => {
+		const months = [
+			"January", "February", "March", "April", "May", "June",
+			"July", "August", "September", "October", "November", "December"
+		];
+		const fullMonth = months[value - 1];
+		return isMobile ? fullMonth.substring(0, 2) : fullMonth;
+	};
+
 	const CustomBar = (props) => (
 		<Rectangle
 			{...props}
@@ -106,9 +125,13 @@ function HomePage() {
 
 	const CustomTooltip = ({ active, payload }) => {
 		if (active && payload && payload.length) {
+			const fullMonths = [
+				"January", "February", "March", "April", "May", "June",
+				"July", "August", "September", "October", "November", "December"
+			];
 			return (
 				<div className="custom-tooltip">
-					<p className="tooltip-label">{formatter(payload[0].payload.month)}</p>
+					<p className="tooltip-label">{fullMonths[payload[0].payload.month - 1]}</p>
 					<p className="tooltip-value">{payload[0].value} m³</p>
 				</div>
 			);
@@ -224,12 +247,12 @@ function HomePage() {
 						<ResponsiveContainer width="100%" height="100%">
 							<BarChart 
 								data={filteredRecords}
-								margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+								margin={isMobile ? { top: 20, right: 30, left: 0, bottom: 5 } : { top: 20, right: 30, left: 20, bottom: 5 }}
 							>
 								<CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" vertical={false} />
 								<XAxis
 									dataKey="month"
-									tickFormatter={formatter}
+									tickFormatter={formatterMobile}
 									interval={0}
 									minTickGap={60}
 									type="category"
