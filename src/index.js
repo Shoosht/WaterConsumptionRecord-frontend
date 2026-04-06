@@ -8,6 +8,8 @@ import RegisterPage from './Pages/RegisterPage/registerPage';
 import HomePage from './Pages/Home/homePage';
 import NewRecordPage from './Pages/NewRecordPage/newRecordPage';
 import BillsPage from './Pages/ManageBills/billsPage';
+import ForgotPasswordPage from './Pages/ForgotPassword/forgotPasswordScreen';
+import ResetPasswordPage from './Pages/ResetPassword/resetPasswordScreen';
 
 import {
   createBrowserRouter,
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
     path: "bills",
     element: <BillsPage/>,
   },
+  {
+    path: "forgotpassword",
+    element: <ForgotPasswordPage/>,
+  },
+  {
+    path: "reset-password/:token",
+    element: <ResetPasswordPage/>,
+  }
 
 ]);
 

@@ -48,6 +48,9 @@ function FirstScreen() {
 							<div className="register-text-first">Don't have an account yet?</div>
 							<Link to="/register" className="register-text-second">Sign up.</Link>
 						</div>
+						<div className="register-text-forgotpass">
+							<Link to="/forgotpassword" className="register-text-third">Forgot password?</Link>
+						</div>
 						<button type="submit" disabled={isLoading} className="submit-button">Login</button>
 						{error && <div className="fs-error-text">{error}</div>}
 					</form>
