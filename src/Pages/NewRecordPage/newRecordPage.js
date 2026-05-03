@@ -18,7 +18,7 @@ function NewRecordPage() {
 	const [amount, setAmount] = useState('')
 	const [error, setError] = useState(null)
 	const [emptyFields, setEmptyFields] = useState([])
-	const { user } = useAuthContext()
+	const { user, isGuest } = useAuthContext()
 	const [isPaid, setIsPaid] = useState(false)
 	const [paymentPopup, setPaymentPopup] = useState(false)
 	const [activeCard, setActiveCard] = useState('visa')
@@ -34,21 +34,26 @@ function NewRecordPage() {
 
 	useEffect(() => {
 		const fetchRecords = async () => {
-			const response = await fetch('/api/records', {
-				headers: {
-					'Authorization': `Bearer ${user.token}`
-				}
-			});
-			const json = await response.json();
+			if (isGuest) {
+				const guestRecords = JSON.parse(localStorage.getItem('guestRecords') || '[]');
+				dispatch({ type: 'SET_RECORDS', payload: guestRecords });
+			} else {
+				const response = await fetch('/api/records', {
+					headers: {
+						'Authorization': `Bearer ${user.token}`
+					}
+				});
+				const json = await response.json();
 
-			if (response.ok) {
-				dispatch({ type: 'SET_RECORDS', payload: json })
+				if (response.ok) {
+					dispatch({ type: 'SET_RECORDS', payload: json })
+				}
 			}
 		};
 		if (user) {
 			fetchRecords();
 		}
-	}, [dispatch, user]);
+	}, [dispatch, user, isGuest]);
 
 	const years = records ? records.map(record => record.year) : [];
 	const availableYears = [...new Set(years)].sort((a, b) => b - a);
@@ -76,6 +81,11 @@ function NewRecordPage() {
 
 		if (!user) {
 			setError('You must be logged in.')
+			return
+		}
+
+		if (isGuest) {
+			setError('Demo mode: Cannot add records. Sign up to save data.')
 			return
 		}
 
@@ -150,6 +160,12 @@ function NewRecordPage() {
 			return
 		}
 
+		if (isGuest) {
+			alert('Demo mode: Payment simulation only. Sign up to make real payments.');
+			setPaymentPopup(false);
+			return;
+		}
+
 		const record_response = await fetch('/api/records/' + recordID, {
 			method: 'PATCH',
 			headers: {
@@ -195,6 +211,12 @@ function NewRecordPage() {
 
 	const handleEditSubmit = async (e) => {
 		e.preventDefault()
+
+		if (isGuest) {
+			setEditPopup(false);
+			alert('Demo mode: Cannot edit records. Sign up to save changes.');
+			return;
+		}
 
 		const originalRecord = records.find(r => r._id === recordID)
 		const paymentStatusChanged = originalRecord && originalRecord.paid !== editPaid
@@ -272,6 +294,12 @@ function NewRecordPage() {
 	const handleDeleteConfirm = async () => {
 		if (!user) {
 			return
+		}
+
+		if (isGuest) {
+			setDeletePopup(false);
+			alert('Demo mode: Cannot delete records. Sign up to manage your data.');
+			return;
 		}
 
 		const response = await fetch('/api/records/' + deleteRecord._id, {

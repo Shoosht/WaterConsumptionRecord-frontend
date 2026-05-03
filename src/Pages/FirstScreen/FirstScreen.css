@@ -2,7 +2,6 @@
   box-sizing: border-box;
 }
 
-
 .background {
   height: 100vh;
   background-color: #58A7DD;
@@ -19,6 +18,7 @@
   font-weight: bold;
   color: #F4F4F4;
   margin-bottom: 100px;
+  cursor: default;
 }
 
 .login-button-centered{
@@ -74,6 +74,7 @@
   font-size: 20px;
   font-weight: bold;
   color: #F4F4F4;
+  cursor: default;
 }
 
 .login-div{
@@ -99,6 +100,7 @@
   font-weight: bold;
   color: #3f3f3f;
   margin-bottom: 50px;
+  cursor: default;
 }
 
 .form-group {

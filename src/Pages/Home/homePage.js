@@ -13,7 +13,7 @@ function HomePage() {
 	const [years, setYears] = useState([]);
 	const [selectedYear, setSelectedYear] = useState(null);
 	const [open, setOpen] = useState(false);
-	const { user } = useAuthContext();
+	const { user, isGuest } = useAuthContext();
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 	const [stats, setStats] = useState({
 		totalConsumption: 0,
@@ -33,7 +33,7 @@ function HomePage() {
 		return () => window.removeEventListener('resize', handleResize);
 	}, []);
 
- 	useEffect(() => {
+	useEffect(() => {
 		async function fetchRecords() {
 			const response = await fetch('/api/records', {
 				headers: {
@@ -55,7 +55,18 @@ function HomePage() {
 			fetchRecords();
 		}
 
-	}, [dispatch, user]);
+		if (isGuest) {
+			const guestRecords = JSON.parse(localStorage.getItem('guestRecords'));
+			if (guestRecords) {
+				dispatch({ type: 'SET_RECORDS', payload: guestRecords });
+				const uniqueYears = [...new Set(guestRecords.map(item => item.year))];
+				setYears(uniqueYears);
+				setSelectedYear(uniqueYears[uniqueYears.length - 1]);
+			}
+			return;
+		}
+
+	}, [dispatch, user, isGuest]);
 
 	useEffect(() => {
 		if (!selectedYear) return;

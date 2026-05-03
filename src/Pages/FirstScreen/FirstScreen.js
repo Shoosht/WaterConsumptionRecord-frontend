@@ -3,12 +3,14 @@ import githubLogo from '../../Components/Icons/github-mark.svg';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useLogin } from '../../Hooks/useLogin';
+import { useGuestLogin } from '../../Hooks/useGuestLogin';
 
 function FirstScreen() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const { login, error, isLoading } = useLogin()
-
+	const { loginAsGuest } = useGuestLogin();
+	
 	const handleSubmit = async (e) => {
 		e.preventDefault();
     

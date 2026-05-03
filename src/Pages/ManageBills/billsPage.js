@@ -10,7 +10,7 @@ import masterCardIcon from '../../Components/Icons/mastercard.svg';
 import americanExpressIcon from '../../Components/Icons/american-express.svg';
 
 function BillsPage() {
-    const { user, dispatch: authDispatch } = useAuthContext();
+    const { user, isGuest, dispatch: authDispatch } = useAuthContext();
     const { bills, dispatch: billDispatch } = useBillsContext()
     const { dispatch: recordDispatch } = useRecordsContext()
 
@@ -28,21 +28,26 @@ function BillsPage() {
 
     useEffect(() => {
 		const fetchBills = async () => {
-			const response = await fetch('/api/bills', {
-				headers: {
-					'Authorization': `Bearer ${user.token}`
-				}
-			});
-			const json = await response.json();
+            if (isGuest) {
+                const guestBills = JSON.parse(localStorage.getItem('guestBills') || '[]');
+                billDispatch({ type: 'SET_BILLS', payload: guestBills });
+            } else {
+                const response = await fetch('/api/bills', {
+					headers: {
+						'Authorization': `Bearer ${user.token}`
+					}
+				});
+				const json = await response.json();
 
-			if (response.ok) {
-				billDispatch({ type: 'SET_BILLS', payload: json })
+				if (response.ok) {
+					billDispatch({ type: 'SET_BILLS', payload: json })
+				}
 			}
 		};
-		if (user) {
+		if (user || isGuest) {
 			fetchBills();
 		}
-	}, [billDispatch, user]);
+	}, [billDispatch, user, isGuest]);
 
     const [editableFields, setEditableFields] = useState({
         name: false,
@@ -83,6 +88,19 @@ function BillsPage() {
     }, [user]);
 
     const handleSaveClick = async (field) => {
+        if (isGuest) {
+            alert('Demo mode: Cannot edit account. Sign up to save changes.');
+            setEditableFields(prev => ({
+                ...prev,
+                [field]: false
+            }));
+            setFormData(prev => ({
+                ...prev,
+                [field]: originalData[field]
+            }));
+            return;
+        }
+
         try {
             const response = await fetch(`/api/user/${user._id}`, {
                 method: 'PATCH',
@@ -161,6 +179,12 @@ function BillsPage() {
             return;
         }
 
+        if (isGuest) {
+            alert('Demo mode: Payment simulation only. Sign up to make real payments.');
+            setPaymentPopup(false);
+            return;
+        }
+
         const bill_response = await fetch('/api/bills/' + billID, {
             method: 'PATCH',
             headers: {
@@ -191,10 +215,6 @@ function BillsPage() {
         }
     };
 
-    if (!user) {
-        return <div className="bp-loading">Loading user data...</div>;
-    }
-
     function Capitalize(str){
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
@@ -203,6 +223,11 @@ function BillsPage() {
         e.preventDefault();
         setPasswordError('');
         setPasswordSuccess('');
+
+        if (isGuest) {
+            setPasswordError('Demo mode: Cannot change password. Sign up for a real account.');
+            return;
+        }
     
         if (passwordData.newPassword !== passwordData.confirmPassword) {
             setPasswordError('New passwords do not match.');
