@@ -4,7 +4,7 @@ import App from './App';
 import { RecordContextProvider } from './Context/recordContext';
 import { AuthContextProvider } from './Context/authContext';
 import { BillsContextProvider } from './Context/billContext';
-import RegisterPage from './Pages/RegisterPage/registerPage';
+import RegisterPage from './Pages/RegisterPage/RegisterPage';
 import HomePage from './Pages/Home/homePage';
 import NewRecordPage from './Pages/NewRecordPage/newRecordPage';
 import BillsPage from './Pages/ManageBills/billsPage';

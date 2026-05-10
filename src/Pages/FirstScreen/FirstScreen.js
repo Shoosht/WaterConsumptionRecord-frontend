@@ -1,4 +1,4 @@
-import './firstScreen.css';
+import './FirstScreen.css';
 import githubLogo from '../../Components/Icons/github-mark.svg';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
@@ -60,7 +60,7 @@ function FirstScreen() {
 						<div className="or">
 							or
 						</div>
-						<Link to="/home" className="guest-link">View app as a guest.</Link>
+						<Link to="/home" onClick={()=>{loginAsGuest()}} className="guest-link">View app as a guest.</Link>
 					</div>
 				</div>
 			</div>

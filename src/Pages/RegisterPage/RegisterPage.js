@@ -1,4 +1,4 @@
-import './registerPage.css';
+import './RegisterPage.css';
 import githubLogo from '../../Components/Icons/github-mark.svg';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
