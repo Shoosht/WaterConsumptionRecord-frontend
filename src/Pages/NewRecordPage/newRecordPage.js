@@ -38,7 +38,7 @@ function NewRecordPage() {
 				const guestRecords = JSON.parse(localStorage.getItem('guestRecords') || '[]');
 				dispatch({ type: 'SET_RECORDS', payload: guestRecords });
 			} else {
-				const response = await fetch('/api/records', {
+				const response = await fetch(`${process.env.REACT_APP_API_URI}/api/records`, {
 					headers: {
 						'Authorization': `Bearer ${user.token}`
 					}
@@ -101,7 +101,7 @@ function NewRecordPage() {
 
 		const record = { year, month, amount, paid: isPaid }
 
-		const response = await fetch('/api/records', {
+		const response = await fetch(`${process.env.REACT_APP_API_URI}/api/records`, {
 			method: 'POST',
 			body: JSON.stringify(record),
 			headers: {
@@ -137,7 +137,7 @@ function NewRecordPage() {
 			paid_by: null
 		}
 
-		const bill_response = await fetch('/api/bills', {
+		const bill_response = await fetch(`${process.env.REACT_APP_API_URI}/api/bills`, {
 			method: 'POST',
 			body: JSON.stringify(bill),
 			headers: {
@@ -166,7 +166,7 @@ function NewRecordPage() {
 			return;
 		}
 
-		const record_response = await fetch('/api/records/' + recordID, {
+		const record_response = await fetch(`${process.env.REACT_APP_API_URI}/api/records/` + recordID, {
 			method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json",
@@ -177,7 +177,7 @@ function NewRecordPage() {
 
 		const record_json = await record_response.json()
 
-		const bill_response = await fetch('/api/bills/' + recordID, {
+		const bill_response = await fetch(`${process.env.REACT_APP_API_URI}/api/bills/` + recordID, {
 			method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json",
@@ -221,7 +221,7 @@ function NewRecordPage() {
 		const originalRecord = records.find(r => r._id === recordID)
 		const paymentStatusChanged = originalRecord && originalRecord.paid !== editPaid
 
-		const response = await fetch('/api/records/' + recordID, {
+		const response = await fetch(`${process.env.REACT_APP_API_URI}/api/records/` + recordID, {
 			method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json",
@@ -239,7 +239,7 @@ function NewRecordPage() {
 
 		if(response.ok){
 			if(paymentStatusChanged && editPaid){
-				await fetch('/api/bills/' + recordID, {
+				await fetch(`${process.env.REACT_APP_API_URI}/api/bills/` + recordID, {
 					method: 'DELETE',
 					headers: {
 						'Authorization': `Bearer ${user.token}`
@@ -255,7 +255,7 @@ function NewRecordPage() {
 					paid_by: user.email
 				}
 
-				await fetch('/api/bills', {
+				await fetch(`${process.env.REACT_APP_API_URI}/api/bills`, {
 					method: 'POST',
 					body: JSON.stringify(bill),
 					headers: {
@@ -264,7 +264,7 @@ function NewRecordPage() {
 					}
 				})
 			} else {
-				await fetch('/api/bills/' + recordID, {
+				await fetch(`${process.env.REACT_APP_API_URI}/api/bills/` + recordID, {
 					method: 'PATCH',
 					headers: {
 						"Content-Type": "application/json",
@@ -302,7 +302,7 @@ function NewRecordPage() {
 			return;
 		}
 
-		const response = await fetch('/api/records/' + deleteRecord._id, {
+		const response = await fetch(`${process.env.REACT_APP_API_URI}/api/records/` + deleteRecord._id, {
 			method: 'DELETE',
 			headers: {
 				'Authorization': `Bearer ${user.token}`
@@ -311,7 +311,7 @@ function NewRecordPage() {
 
 		const json = await response.json()
 
-		const bill_response = await fetch('/api/bills/' + deleteRecord._id, {
+		const bill_response = await fetch(`${process.env.REACT_APP_API_URI}/api/bills/` + deleteRecord._id, {
 			method: 'DELETE',
 			headers: {
 				'Authorization': `Bearer ${user.token}`

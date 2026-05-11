@@ -10,7 +10,7 @@ function FirstScreen() {
 	const [password, setPassword] = useState('');
 	const { login, error, isLoading } = useLogin()
 	const { loginAsGuest } = useGuestLogin();
-	
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
     

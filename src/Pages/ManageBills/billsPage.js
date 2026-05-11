@@ -32,7 +32,7 @@ function BillsPage() {
                 const guestBills = JSON.parse(localStorage.getItem('guestBills') || '[]');
                 billDispatch({ type: 'SET_BILLS', payload: guestBills });
             } else {
-                const response = await fetch('/api/bills', {
+                const response = await fetch(`${process.env.REACT_APP_API_URI}/api/bills`, {
 					headers: {
 						'Authorization': `Bearer ${user.token}`
 					}
@@ -185,7 +185,7 @@ function BillsPage() {
             return;
         }
 
-        const bill_response = await fetch('/api/bills/' + billID, {
+        const bill_response = await fetch(`${process.env.REACT_APP_API_URI}/api/bills/` + billID, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
@@ -196,7 +196,7 @@ function BillsPage() {
 
         const bill_json = await bill_response.json();
 
-        const record_response = await fetch('/api/records/' + billID, {
+        const record_response = await fetch(`${process.env.REACT_APP_API_URI}/api/records/` + billID, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",

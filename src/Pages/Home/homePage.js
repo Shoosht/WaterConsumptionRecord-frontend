@@ -35,7 +35,7 @@ function HomePage() {
 
 	useEffect(() => {
 		async function fetchRecords() {
-			const response = await fetch('/api/records', {
+			const response = await fetch(`${process.env.REACT_APP_API_URI}/api/records`, {
 				headers: {
 					'Authorization': `Bearer ${user.token}`
 				}

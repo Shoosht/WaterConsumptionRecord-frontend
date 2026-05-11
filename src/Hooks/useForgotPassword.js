@@ -11,7 +11,7 @@ export const useForgotPassword = () => {
         setMessage(null);
 
         try {
-            const response = await fetch('/api/user/forgotpassword', {
+            const response = await fetch(`${process.env.REACT_APP_API_URI}/api/user/forgotpassword`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email })
